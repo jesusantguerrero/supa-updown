@@ -1,5 +1,5 @@
 <template>
-  <div class="flex px-5 py-3 items-center space-x-10" @submit.prevent="submit">
+  <div class="flex items-center px-5 py-3 space-x-10" @submit.prevent="submit">
     <div class="flex">
         <div><i class="fa fa-lock"></i></div>
         <div class="">
@@ -9,16 +9,16 @@
 
     </div>
     <div>
-        <div class="px-2 py-1 text-green-500 font-bold bg-green-100">
+        <div class="px-2 py-1 font-bold text-green-500 bg-green-100">
             <span>{{ item.lastResponse.status }}</span>
             <span class="ml-1"> {{ item.lastResponse.message }}</span>
         </div>
     </div>
     <div class="w-1/2">
-        <div class="flex items-center uppercase text-sm text-gray-400">
+        <div class="flex items-center text-sm text-gray-400 uppercase">
             <span class="inline-block w-10">Uptime</span>
             <site-uptime :value="uptime" class="ml-5"/></div>
-        <div class="flex items-center uppercase text-sm text-gray-400">
+        <div class="flex items-center text-sm text-gray-400 uppercase">
             <span class="inline-block w-10">Apdex</span>
             <site-uptime :value="uptime" class="ml-5"/>
         </div>
@@ -62,7 +62,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const state = reactive({
             uptime: computed(() => {
-                return props.item.responses.map((res) => res.status).length;
+                return props.item.responses ? props.item.responses.map((res) => res && res.status).length : [];
             }),
             uptimePercent: computed(() => {
                 const percent = state.uptime / 24 * 100;

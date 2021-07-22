@@ -1,5 +1,5 @@
 <template>
-  <form class="flex shadow-md border px-5 py-3 items-center" @submit.prevent="submit">
+  <div class="flex items-center px-5 py-3 border shadow-md">
     <div class="flex">
         <select v-model="form.protocol" class="focus:outline-none">
             <option :value="protocol" v-for="protocol in protocols" :key="protocol">
@@ -28,14 +28,15 @@
             </option>
         </select>
     </div>
-    <div class="text-right w-full">
-        <button class="bg-gray-600 text-white px-5 py-1 rounded-md"> Save </button>
+    <div class="w-full text-right">
+        <button class="px-5 py-1 text-white bg-gray-600 rounded-md" @click="submit()"> Save </button>
     </div>
-  </form>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
+import useForm from "../../utils/useForm";
 
 export interface SiteItemData {
     protocol: 'http://' | 'https://' | 'tcp://' | 'icmp://',
@@ -59,7 +60,7 @@ export default defineComponent({
             apdexes: [1.5, 0.5, 0.25, 0.1],
         })
 
-        const form = reactive({
+        const form = useForm({
             protocol: 'http://',
             url: '',
             title: '',
@@ -70,10 +71,13 @@ export default defineComponent({
                 method: 'GET',
                 headers: {},
             },
+            lastResponse: {},
+            responses: [],
         });
 
         const submit = () => {
-            emit('submit', form);
+            emit('submit', form.data());
+            form.reset();
         }
 
         return {

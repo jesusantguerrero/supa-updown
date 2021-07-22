@@ -1,9 +1,10 @@
 <template>
-  <div class="bg-green-500 font-bold text-white p-5">
+  <div class="p-5 font-bold text-white bg-green-500">
     Up and running
   </div>
-  <div class="px-52 py-2">
+  <div class="py-2 px-52">
     <site-dashboard 
+      :sites="sites"
       @submit="addSite"
     />
   </div>
@@ -12,12 +13,14 @@
 <script lang="ts" setup>
 import SiteDashboard from './site/SiteDashboard.vue';
 import { useSiteApi } from '../utils/useApi';
-const  { add } = useSiteApi();
+import { reactive } from '@vue/reactivity';
+const  { add, getAll } = useSiteApi();
 
+const sites = reactive(getAll());
 const addSite = (site) => {
   add(site).then(() => {
-    alert('Saved');
-  })
+    sites.push(site);
+  });
 }
 
 </script>
