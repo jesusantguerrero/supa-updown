@@ -1,5 +1,5 @@
 <template>
-  <app-header v-if="supabaseState.user" />
+  <app-header v-if="supabaseState.user.email" />
   <router-view />
 </template>
 

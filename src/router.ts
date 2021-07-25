@@ -1,4 +1,5 @@
 import Dashboard from "./pages/Dashboard.vue"
+import Account from "./pages/UserAccount.vue"
 import Login from "./pages/Login.vue"
 import { createRouter, createWebHistory } from "vue-router";
 import { supabaseState } from "./utils/useSupabase";
@@ -12,7 +13,11 @@ const routes = [
     path: "/dashboard", 
     name: "dashboard",
     component: Dashboard,
-
+  },
+  { 
+    path: "/account", 
+    name: "account",
+    component: Account,
   },
   {
     path: "/login",
@@ -52,7 +57,7 @@ const myRouter = createRouter({
 });
 
 myRouter.beforeEach(async (to, from, next) => {
-  const user = supabaseState.user;
+  const user = supabaseState.user.email;
   if (to.meta.requiresAuth !== false && !user) {
     next({name: "login"})
   } else if (to.meta.requiresAuth == false && user) {

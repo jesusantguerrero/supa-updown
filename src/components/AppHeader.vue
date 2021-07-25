@@ -2,7 +2,9 @@
   <div class="flex justify-between px-10 py-4">
     <h1 class="font-bold text-gray-700"> SupaUp</h1>
     <div>
-        {{ userName }}
+        <router-link :to="{name: 'account'}">
+            {{ userName }}
+        </router-link> 
         <at-button class="bg-green-500" @click="logout">Logout</at-button>
     </div>
   </div>
