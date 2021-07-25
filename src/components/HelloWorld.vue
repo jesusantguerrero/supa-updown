@@ -16,10 +16,15 @@ import { useSiteApi } from '../utils/useApi';
 import { reactive } from '@vue/reactivity';
 const  { add, getAll } = useSiteApi();
 
-const sites = reactive(getAll());
+const sites = reactive([]);
+getAll().then((siteData) => {
+  sites.push(...siteData)
+});
 const addSite = (site) => {
   add(site).then(() => {
     sites.push(site);
+  }).catch((error) => {
+    alert(error.description || error.message);
   });
 }
 

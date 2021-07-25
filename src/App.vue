@@ -5,6 +5,7 @@
 
 
 <script setup>
+  import runBackground from '../script';
   import AppHeader from './components/AppHeader.vue';
   import { useSupabase, supabaseState } from './utils/useSupabase';
 
@@ -12,6 +13,7 @@
 
   supabase.auth.onAuthStateChange((_, session) => {
     supabaseState.user = session.user;
+    runBackground()
   })
 </script>
 

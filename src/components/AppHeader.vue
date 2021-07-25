@@ -1,7 +1,11 @@
 <template>
   <div class="flex justify-between px-10 py-4">
-    <h1 class="font-bold text-gray-700"> SupaUp</h1>
-    <div>
+    <h1 class="font-bold text-gray-700"> 
+      <router-link :to="{name: 'dashboard'}">
+        SupaUp
+      </router-link>
+    </h1>
+    <div class="space-x-3">
         <router-link :to="{name: 'account'}">
             {{ userName }}
         </router-link> 

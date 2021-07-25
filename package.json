@@ -10,6 +10,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^1.20.0",
     "atmosphere-ui": "^0.1.21",
+    "axios": "^0.21.1",
     "lodash-es": "^4.17.21",
     "vue": "^3.0.5",
     "vue-router": "^4.0.10"

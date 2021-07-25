@@ -1,6 +1,7 @@
 <template>
   <form @submit.prevent="updateProfile" class="max-w-6xl mx-auto">
-    <h4 class="text-xl font-bold"> Profile </h4>
+    <h4 class="mb-4 text-xl font-bold"> Profile </h4>
+    <avatar v-model:path="formData.avatar_url" @upload="updateProfile" />
     <at-field label="Email">
       <at-input id="email" type="text" :value="supabaseState.user.email" disabled />
     </at-field>
@@ -26,6 +27,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from "@vue/reactivity";
 import { supabaseState, useSupabase } from "../utils/useSupabase";
+import Avatar from "../components/Avatar.vue";
 import { AtField, AtInput, AtButton } from "atmosphere-ui";
 
 const formData = reactive({

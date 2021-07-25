@@ -9,7 +9,7 @@
 
     </div>
     <div>
-        <div class="px-2 py-1 font-bold text-green-500 bg-green-100">
+        <div class="px-2 py-1 font-bold text-green-500 bg-green-100" v-if="item.lastResponse">
             <span>{{ item.lastResponse.status }}</span>
             <span class="ml-1"> {{ item.lastResponse.message }}</span>
         </div>
