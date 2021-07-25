@@ -8,8 +8,11 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.20.0",
+    "atmosphere-ui": "^0.1.21",
     "lodash-es": "^4.17.21",
-    "vue": "^3.0.5"
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
