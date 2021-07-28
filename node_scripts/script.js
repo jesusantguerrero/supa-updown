@@ -19,7 +19,7 @@ const updateCall = (site) => {
         update(site.id, { last_response: responseToSave, responses }).catch(error => {
             console.log(error)
         });
-        console.log(response.request.socket.ssl)
+        console.log(response)
     }).catch(error => {
         const responseToSave = {
             status: error.response.status || 500,

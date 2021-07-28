@@ -1,30 +1,27 @@
 <template>
   <div class="grid w-full h-1 bg-gray-200 grid-cols-24">
-    <div class="h-full bg-green-300 active" ref="progress" :style="progressClass"></div>
+    <div class="w-full h-full bg-opacity-75 active" ref="progress" :class="progressClass(response)" v-for="response in responses" :key="response"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from "@vue/runtime-core"
-
     const props = defineProps({
         max: {
             type: Number,
             default: 24
         },
-        value: {
-            type: Number,
-            default: 0
+        responses: {
+            type: Array,
+            default() {
+                return []
+            }
         }
     })
 
-    const activePercent = computed(() => {
-        return props.value / props.max * 100;
-    })
 
-    const progressClass = computed(() => {
-        return `width: ${activePercent.value}%`
-    });
+    const progressClass = (response) => {
+        return response.status >= 400 ? 'bg-red-500' : 'bg-green-400';
+    };
 </script>
 
 
