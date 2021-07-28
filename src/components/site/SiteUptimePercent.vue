@@ -1,5 +1,5 @@
 <template>
-  <div class="grid w-full h-1 bg-gray-200 grid-cols-24">
+  <div class="w-full h-1 bg-gray-200 grid grid-cols-[24]">
     <div class="h-full bg-green-300 active" ref="progress" :style="progressClass"></div>
   </div>
 </template>

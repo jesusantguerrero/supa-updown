@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { reactive } from "vue";
-import { defaultConfig } from "../config";
+import { defaultConfig } from "../config/";
 
 export const supabaseState = reactive({
     user: {}

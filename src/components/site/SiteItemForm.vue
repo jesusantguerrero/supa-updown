@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center px-5 py-3 border shadow-md">
+  <div class="flex flex-wrap items-center px-5 py-3 border shadow-md">
     <div class="flex">
         <select v-model="form.protocol" class="focus:outline-none">
             <option :value="protocol" v-for="protocol in protocols" :key="protocol">
@@ -61,7 +61,7 @@ export default defineComponent({
         })
 
         const form = useForm({
-            protocol: 'http://',
+            protocol: 'https://',
             url: '',
             title: '',
             contains: '',

@@ -9,7 +9,7 @@
 
     </div>
     <div>
-        <div class="px-2 py-1 font-bold text-green-500 bg-green-100" v-if="item.lastResponse">
+        <div class="px-2 py-1 font-bold" :class="statusColors" v-if="item.lastResponse">
             <span>{{ item.lastResponse.status }}</span>
             <span class="ml-1"> {{ item.lastResponse.message }}</span>
         </div>
@@ -17,7 +17,7 @@
     <div class="w-1/2">
         <div class="flex items-center text-sm text-gray-400 uppercase">
             <span class="inline-block w-10">Uptime</span>
-            <site-uptime :value="uptime" class="ml-5"/></div>
+            <site-uptime :value="uptime" class="h-5 ml-5"/></div>
         <div class="flex items-center text-sm text-gray-400 uppercase">
             <span class="inline-block w-10">Apdex</span>
             <site-uptime :value="uptime" class="ml-5"/>
@@ -67,8 +67,17 @@ export default defineComponent({
             uptimePercent: computed(() => {
                 const percent = state.uptime / 24 * 100;
                 return percent.toFixed(2);
+            }),
+            statusColors: computed(() => {
+                const colors = {
+                    500: 'bg-red-100 text-red-500',
+                    200: 'bg-green-100 text-green-500',
+                }
+                return colors[props.item.lastResponse.status] || colors[500];
             })
         })
+
+
 
         return {
             ...toRefs(state),
