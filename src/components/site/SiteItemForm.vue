@@ -34,23 +34,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, reactive, toRefs } from 'vue'
 import useForm from "../../utils/useForm";
-
-export interface SiteItemData {
-    protocol: 'http://' | 'https://' | 'tcp://' | 'icmp://',
-    url: string,
-    title: string,
-    contains: string,
-    interval: number,
-    apdex: number,
-    httpRequest: {
-        method: string,
-        headers: { [key: string]: string },
-    },
-    notifiable: string[]
-}
 
 export default defineComponent({
     setup(props, { emit }) {
@@ -88,8 +74,3 @@ export default defineComponent({
     },
 })
 </script>
-
-
-<style>
-
-</style>

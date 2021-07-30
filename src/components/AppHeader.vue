@@ -17,7 +17,7 @@
 <script setup>
 import { computed } from "@vue/runtime-core";
 import { supabaseState, useSupabase } from "../utils/useSupabase";
-import { AtButton } from "atmosphere-ui/dist/atmosphere-ui.es";
+import { AtButton } from "atmosphere-ui";
     
 const userName = computed(() => {
     return supabaseState.user.email
@@ -26,7 +26,3 @@ const userName = computed(() => {
 const { logout } = useSupabase();
 
 </script>
-
-<style>
-
-</style>

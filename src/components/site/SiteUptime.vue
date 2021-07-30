@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
     const props = defineProps({
         max: {
             type: Number,
@@ -23,8 +23,3 @@
         return response.status >= 400 ? 'bg-red-500' : 'bg-green-400';
     };
 </script>
-
-
-<style>
-
-</style>

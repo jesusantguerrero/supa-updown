@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import SiteDashboard from './site/SiteDashboard.vue';
 import { useSiteApi } from '../utils/useApi';
 import { reactive } from '@vue/reactivity';

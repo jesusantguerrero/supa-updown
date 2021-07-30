@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script>
 import { computed } from "@vue/runtime-core"
 
     const props = defineProps({
@@ -26,8 +26,3 @@ import { computed } from "@vue/runtime-core"
         return `width: ${activePercent.value}%`
     });
 </script>
-
-
-<style>
-
-</style>

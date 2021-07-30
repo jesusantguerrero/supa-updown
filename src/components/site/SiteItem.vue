@@ -33,23 +33,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { computed, defineComponent, reactive, toRefs } from 'vue'
 import SiteUptime  from './SiteUptime.vue';
-
-export interface SiteItemData {
-    protocol: 'http://' | 'https://' | 'tcp://' | 'icmp://',
-    url: string,
-    title: string,
-    contains: string,
-    interval: number,
-    apdex: number,
-    httpRequest: {
-        method: string,
-        headers: { [key: string]: string },
-    },
-    notifiable: string[]
-}
 
 export default defineComponent({
     components: { SiteUptime },
@@ -85,8 +71,3 @@ export default defineComponent({
     },
 })
 </script>
-
-
-<style>
-
-</style>

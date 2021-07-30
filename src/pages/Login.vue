@@ -5,14 +5,14 @@
         app-name="SupaUp"
         :is-loading="isLoading"
         @submit="onSubmit"
+        btn-class="bg-green-500"
     />
   </at-auth-box>
 </template>
 
 <script setup>
     import { reactive, ref } from '@vue/reactivity';
-    import { AtAuthBox, AtAuthForm } from 'atmosphere-ui/dist/atmosphere-ui.es';
-    import 'atmosphere-ui/dist/style.css';
+    import { AtAuthBox, AtAuthForm } from 'atmosphere-ui';
     import { useSupabase } from '../utils/useSupabase';
     const formData = reactive({
         email: '',
