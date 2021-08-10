@@ -1,8 +1,9 @@
 import Dashboard from "./pages/Dashboard.vue"
 import Account from "./pages/UserAccount.vue"
+import Status from "./pages/Status.vue"
 import Login from "./pages/Login.vue"
 import { createRouter, createWebHistory } from "vue-router";
-import { supabaseState } from "./utils/useSupabase";
+import { supabaseState, useSupabase } from "./utils/useSupabase";
 // import { isAuthenticated } from "./utils/useSupabase";
 
 // 2. Define some routes
@@ -41,6 +42,25 @@ const routes = [
       requiresAuth: false,
     },
   },
+  { 
+    path: "/status/:site", 
+    name: "status",
+    component: Status,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/register",
+    component: Login,
+    name: "register",
+    props: {
+      mode: 'register'
+    },
+    meta: {
+      requiresAuth: false,
+    },
+  },
   {
     path: "/",
     component: Login,
@@ -56,13 +76,18 @@ const myRouter = createRouter({
   routes, // short for `routes: routes`
 });
 
-myRouter.beforeEach(async (to, from, next) => {
-  const user = supabaseState.user.email;
-  if (to.meta.requiresAuth !== false && !user) {
+const { isAuthenticated } = useSupabase();
+
+myRouter.beforeEach(async (to, _from, next) => {
+  const user = await isAuthenticated();
+  const loginRoutes = ['/login', '/register'];
+  const isPublicRoute = to.matched.some( record => record.meta.requiresAuth === false );
+  const isLoginRoute = to.matched.some(record => loginRoutes.includes(record.path))
+  if (!isPublicRoute && !user) {
     next({name: "login"})
-  } else if (to.meta.requiresAuth == false && user) {
+  } else if (isPublicRoute && user && isLoginRoute) {
     next({name: "dashboard"})
-  }else {
+  } else {
     next();
   }
 });

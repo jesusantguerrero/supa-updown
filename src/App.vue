@@ -5,19 +5,8 @@
 
 
 <script setup>
-  import { useRouter } from 'vue-router';
   import AppHeader from './components/AppHeader.vue';
-  import { useSupabase, supabaseState } from './utils/useSupabase';
-
-  const { supabase } = useSupabase();
-   const { push } = useRouter();
-
-  supabase.auth.onAuthStateChange((_, session) => {
-    supabaseState.user = session.user;
-    if (session.user) {
-      push({ name: 'dashboard'});
-    }
-  })
+  import { supabaseState } from './utils/useSupabase';
 </script>
 
 <style>
