@@ -4,6 +4,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "deploy:hosting": "npm run build && firebase deploy --only=hosting",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
