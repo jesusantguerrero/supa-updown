@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between">
+    <div class="flex justify-between" v-if="!disabled">
         <div> 
             <input type="search" class="px-3 py-1 focus:outline-none" placeholder="Search 4 checks">
         </div>
@@ -15,7 +15,7 @@
     </div>
     <div class="border divide-y divide-gray-200 shadow-lg">
         <site-item :item="site" v-for="site in sites" :key="site.title" />
-        <site-item-form @submit="$emit('submit', $event)"></site-item-form>
+        <site-item-form @submit="$emit('submit', $event)" v-if="!disabled" />
     </div>
 </template>
 
@@ -28,6 +28,10 @@ const props = defineProps({
     sites: {
         type: Array,
         default: () => [],
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
     }
 });
 

@@ -1,5 +1,5 @@
 <template>
-  <Home />
+  <Home disabled />
 </template>
 
 <script lang="ts" setup>

@@ -5,6 +5,7 @@
   <div class="py-2 px-52">
     <site-dashboard 
       :sites="sites"
+      :disabled="disabled"
       @submit="addSite"
     />
   </div>
@@ -15,7 +16,12 @@ import SiteDashboard from './site/SiteDashboard.vue';
 import { useSiteApi } from '../utils/useApi';
 import { reactive } from '@vue/reactivity';
 const  { add, getAll } = useSiteApi();
-
+defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+})
 const sites = reactive([]);
 getAll().then((siteData) => {
   sites.push(...siteData)
