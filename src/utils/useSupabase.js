@@ -34,10 +34,24 @@ export function useSupabase() {
         }
     }
 
+    
+    const initSupabase = () => {
+        supabase.auth.onAuthStateChange((_, session) => {
+            supabaseState.user = session ? session.user : {};
+            const user = session ? session.user : null;
+            resolve(user);
+        });
+    };
+
+    const isAuthenticated = () => {
+        return supabaseState.user.id ? true : false;
+    }
 
     return {
         supabase,
         getProfile,
         logout,
+        initSupabase,
+        isAuthenticated,
     }
 }
