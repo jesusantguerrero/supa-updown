@@ -1,6 +1,6 @@
 <template>
   <div class="grid w-full h-1 bg-gray-200 grid-cols-24">
-    <div class="w-full h-full bg-opacity-75 active" ref="progress" :class="progressClass(response)" v-for="response in responses" :key="response"></div>
+    <div class="w-full h-full bg-opacity-75 active" :class="progressClass(response)" v-for="response in responses" :key="response"></div>
   </div>
 </template>
 

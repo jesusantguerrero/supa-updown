@@ -1,9 +1,9 @@
 <template>
-  <Home disabled />
+  <site-status disabled />
 </template>
 
 <script lang="ts" setup>
-import Home from '../components/Home.vue'
+import SiteStatus from '../components/SiteStatus.vue'
 </script>
 
 <style>
