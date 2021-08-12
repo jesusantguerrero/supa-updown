@@ -31,7 +31,7 @@ const updateCall = async (site) => {
             responseSeconds: timeDiff,
         }
     });
-    const responses = [...site.responses, responseToSave].slice(0, 24);
+    const responses = [...site.responses, responseToSave].slice(-24);
     const formData = { last_response: responseToSave, responses, next_check_date: nextCheckDate }
     await update(site.id,  formData).catch(error => {
         console.log(error)
