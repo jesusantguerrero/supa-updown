@@ -1,26 +1,43 @@
 <template>
 <div>
-  <div class="flex justify-between p-5 px-20 font-bold text-gray-700">
-    <h1 class="text-3xl text-gray-600"> Up and running </h1> 
+  <div class="flex justify-between p-5 font-bold text-white bg-gray-700 pb-14 md:px-52">
+    <h1 class="text-3xl text-white"> Supa updown </h1> 
     <div class="text-right">
       Status Page
       <small class="block"> {{ formattedDate }} </small>
     </div>
   </div>
-  <div class="py-2 text-center px-52">
+  <div class="px-5 py-2 mt-10 text-center md:px-52">
     <div class="flex justify-between">
-      <div class="text-left">
-        <h2 class="text-3xl font-bold text-gray-500"> {{ page.title }}</h2>
-        <h3 class="mt-3 mb-10 text-lg font-bold text-gray-600"> {{ page.description }}</h3>
+      <div class="flex text-left">
+        <div
+          class="w-16 h-16 mr-5 transition rounded-lg cursor-pointer hover:bg-gray-400 hover:bg-opacity-10"
+          v-if="page.icon"
+        >
+            <img
+                :src="page.icon"
+                alt=""
+                srcset=""
+            />
+        </div>
+        <div class="{'ml-5'">
+          <h2 class="text-3xl font-bold text-gray-500"> {{ page.title }}</h2>
+          <h3 class="mt-1 text-lg font-bold text-gray-600"> {{ page.description }}</h3>
+        </div>
       </div>
       <div>
         <at-button class="font-bold text-green-500 bg-green-100 border border-green-400"> Subscribe to updates </at-button>
       </div>
     </div>
-    <site-dashboard 
-      :sites="page.sites"
-      :disabled="disabled"
-    />
+    <div class="mt-10">
+      <site-dashboard
+        :sites="page.sites"
+        :disabled="disabled"
+      />
+    </div>
+    <div class="mt-5 text-left">
+      <h4 class="text-xl font-bold text-gray-500"> Past incidents </h4> 
+    </div>
   </div>
 </div>
 </template>
@@ -44,6 +61,7 @@ defineProps({
 const  { get, getSites } = usePageApi();
 
 const page = reactive({
+  icon: '',
   title: '',
   description: '',
   date: '',
@@ -52,6 +70,7 @@ const page = reactive({
 
 const { params } = useRoute();
 get(params.page).then( async pageData => {
+  page.icon = pageData.icon;
   page.title = pageData.title;
   page.description = pageData.description;
   page.sites = await getSites(params.page);

@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center px-5 py-3 space-x-10" @submit.prevent="submit">
     <div class="flex w-2/12">
-        <div><i class="fa fa-lock"></i></div>
+        <div class="text-green-500"><i class="fa fa-lock"></i></div>
         <div class="">
             <span class="text-green-500">{{ item.protocol }}</span>
             <span>{{ item.url }}</span>
@@ -24,7 +24,7 @@
     </div>
     <div>
         <span> {{ uptimePercent }}%</span>
-        <span></span>
+        <span class="font-bold text-green-500"> Operational</span>
     </div>
   </div>
 </template>
@@ -44,10 +44,14 @@ export default defineComponent({
     setup(props, { emit }) {
         const state = reactive({
             uptime: computed(() => {
-                return props.item.responses ? props.item.responses.map((res) => res && res.status).length : [];
+                return props.item.responses ? props.item.responses.reduce((dailyResponse, response) => {
+                    dailyResponse.calls += response.calls;
+                    dailyResponse.success += response.success;
+                    return dailyResponse;
+                }, {calls: 0, success: 0 }) : { calls: 0, success: 0 };
             }),
             uptimePercent: computed(() => {
-                const percent = state.uptime / 24 * 100;
+                const percent = state.uptime.success / state.uptime.calls * 100;
                 return percent.toFixed(2);
             }),
             statusColors: computed(() => {
