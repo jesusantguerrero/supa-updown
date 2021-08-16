@@ -5,15 +5,18 @@
             <template #trigger>
                 <div  :class="progressClass(response)" class="w-full h-full bg-green-500 bg-opacity-75 cursor-pointer hover:bg-gray-500 bg-op" />
             </template>
-            <p class="font-bold text-gray-500">12 Aug 2021</p>
-            Hola mundo como estamos?
+            <p class="font-bold text-gray-500">{{ getResponseDate(response.date)}}</p>
+            No downtime reported
         </n-popover>
     </div>
   </div>
 </template>
 
 <script setup>
+    import format from "date-fns/format";
     import { NPopover } from "naive-ui"
+    import { reactive, toRefs } from "vue-demi";
+    
     const props = defineProps({
         max: {
             type: Number,
@@ -27,8 +30,12 @@
         }
     })
 
-
+ 
     const progressClass = (response) => {
         return response.status >= 400 ? 'bg-red-500' : 'bg-green-400';
+    };
+
+    const getResponseDate = (date) => {
+        return format(new Date(date), "MMM dd, yyyy");
     };
 </script>
