@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="flex justify-between p-5 px-20 font-bold text-gray-700">
     <h1 class="text-3xl text-gray-600"> Up and running </h1> 
     <div class="text-right">
@@ -7,23 +8,32 @@
     </div>
   </div>
   <div class="py-2 text-center px-52">
-    <h2 class="text-3xl font-bold text-gray-500"> Zenlabs </h2>
-    <h3 class="mt-3 mb-10 text-lg font-bold text-gray-600"> List of our services</h3>
+    <div class="flex justify-between">
+      <div class="text-left">
+        <h2 class="text-3xl font-bold text-gray-500"> {{ page.title }}</h2>
+        <h3 class="mt-3 mb-10 text-lg font-bold text-gray-600"> {{ page.description }}</h3>
+      </div>
+      <div>
+        <at-button class="font-bold text-green-500 bg-green-100 border border-green-400"> Subscribe to updates </at-button>
+      </div>
+    </div>
     <site-dashboard 
-      :sites="sites"
+      :sites="page.sites"
       :disabled="disabled"
     />
   </div>
+</div>
 </template>
 
 <script setup>
 import SiteDashboard from './site/SiteDashboard.vue';
-import { useSiteApi } from '../utils/useApi';
+import { usePageApi } from '../utils/useApi';
 import { reactive } from '@vue/reactivity';
 import { useNow } from "@vueuse/core";
 import { format } from "date-fns";
-import { computed } from 'vue-demi';
-
+import { computed, onMounted } from 'vue-demi';
+import { AtButton } from 'atmosphere-ui';
+import { useRoute } from 'vue-router';
 defineProps({
   disabled: {
     type: Boolean,
@@ -31,12 +41,23 @@ defineProps({
   }
 })
 
-const  { getAll } = useSiteApi();
-const sites = reactive([]);
+const  { get, getSites } = usePageApi();
 
-getAll().then((siteData) => {
-  sites.push(...siteData)
+const page = reactive({
+  title: '',
+  description: '',
+  date: '',
+  sites: []
 });
+
+const { params } = useRoute();
+get(params.page).then( async pageData => {
+  page.title = pageData.title;
+  page.description = pageData.description;
+  page.sites = await getSites(params.page);
+  console.log(page);
+});
+
 
 const now = useNow();
 

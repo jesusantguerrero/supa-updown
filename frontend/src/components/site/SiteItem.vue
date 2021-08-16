@@ -16,10 +16,6 @@
     <div class="w-6/12">
         <div class="flex items-center text-sm text-gray-400 uppercase">
             <span class="inline-block w-16">Uptime</span>
-            <site-uptime :responses="item.responses" class="h-5 ml-5 opacity-60"/>
-        </div>
-        <div class="flex items-center text-sm text-gray-400 uppercase">
-            <span class="inline-block w-16">Apdex</span>
             <site-uptime :responses="item.responses" class="gap-1 ml-5 opacity-60"/>
         </div>
     </div>
