@@ -43,7 +43,7 @@ const routes = [
     },
   },
   { 
-    path: "/status/:site", 
+    path: "/status/:page", 
     name: "status",
     component: Status,
     meta: {

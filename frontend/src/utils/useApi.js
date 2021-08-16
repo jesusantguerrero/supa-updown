@@ -47,6 +47,35 @@ export function useSiteApi() {
     };
 }
 
+export function usePageApi() {
+    const get = async (pageId) => {
+        const { data, error } = await supabase.from('pages')
+        .select(`*,
+            page_sites (
+                id
+            )
+        `).eq('id', pageId).limit(1);
+        if (error) throw error;
+        return data && data[0];
+    }
+
+    const getSites = async (pageId) => {
+        const { data, error } = await supabase.from('page_sites')
+        .select(`*,
+            sites (
+                *
+            )
+        `).eq('page_id', pageId);
+        if (error) throw error;
+        return data.map(pageSites => siteToObject(pageSites.sites));
+    }
+
+    return {
+        get,
+        getSites,
+    }
+}
+ 
 function parseSite(site) {
     return {
         protocol: site.protocol,
