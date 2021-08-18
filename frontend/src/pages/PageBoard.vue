@@ -1,7 +1,4 @@
 <template>
-  <div class="p-5 font-bold text-white bg-green-500">
-    Create a new page
-  </div>
   <div class="py-2 px-52">
     <page-form 
       :sites="sites"

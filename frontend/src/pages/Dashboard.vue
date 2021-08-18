@@ -1,7 +1,4 @@
 <template>
-  <div class="p-5 font-bold text-white bg-green-500">
-    Up and running
-  </div>
   <div class="py-2 px-52">
     <h2 class="px-2 text-xl font-bold"> Sites </h2>
     <site-dashboard 
