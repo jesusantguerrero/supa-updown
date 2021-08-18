@@ -16,30 +16,26 @@ export function useSupabase() {
         supabase.auth.signOut();
     }
 
-    const getProfile = async () => {
-        try {    
-            let { data, error, status } = await supabase
-            .from("profiles")
-            .select(`username, website, avatar_url`)
-            .eq("id", supabaseState.user.id)
-            .single()
-    
-            if (error && status !== 406) throw error
-    
-            if (data) {
-                return data;
-            }
-        } catch (error) {
-            alert(error.message)
+    const getProfile = async () => {  
+        const { data, error, status } = await supabase
+        .from("profiles")
+        .select(`username, website, avatar_url`)
+        .eq("id", supabaseState.user.id)
+        .single()
+
+        if (error && status !== 406) throw error
+        if (data) {
+            return data;
         }
     }
 
     
     const initSupabase = () => {
+        console.log("here", supabaseState.user)
         supabase.auth.onAuthStateChange((_, session) => {
+            console.log("here")
             supabaseState.user = session ? session.user : {};
             const user = session ? session.user : null;
-            resolve(user);
         });
     };
 

@@ -1,21 +1,22 @@
 <template>
   <div class="p-5 font-bold text-white bg-green-500">
-    Up and running
+    Create a new page
   </div>
   <div class="py-2 px-52">
-    <site-dashboard 
+    <page-form 
       :sites="sites"
-      :disabled="disabled"
-      @submit="addSite"
+      @submit="addPage"
     />
   </div>
 </template>
 
 <script setup>
-import SiteDashboard from './site/SiteDashboard.vue';
-import { useSiteApi } from '../utils/useApi';
+import PageForm from '../components/page/PageForm.vue';
+import { useSiteApi, usePageApi } from '../utils/useApi';
 import { reactive } from '@vue/reactivity';
-const  { add, getAll } = useSiteApi();
+const  { getAll } = useSiteApi();
+const  { add } = usePageApi();
+
 defineProps({
   disabled: {
     type: Boolean,
@@ -26,9 +27,10 @@ const sites = reactive([]);
 getAll().then((siteData) => {
   sites.push(...siteData)
 });
-const addSite = (site) => {
-  add(site).then(() => {
-    sites.push(site);
+
+const addPage = (page) => {
+  add(page).then(() => {
+    alert('Page created');
   }).catch((error) => {
     alert(error.description || error.message);
   });

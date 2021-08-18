@@ -1,19 +1,21 @@
 <template>
-  <div class="rounded-md cursor-pointer">
+  <div class="rounded-md cursor-pointer ">
     <img
       v-if="src"
       :src="src"
       alt="Avatar"
-      class="rounded avatar image"
+      class="rounded-md avatar image"
       :style="{ height: size, width: size }"
+      @click="openFileDialog"
     />
     <div
       v-else
-      class="avatar no-image"
+      class="bg-gray-100 rounded-md avatar no-image"
       :style="{ height: size, width: size }"
+      @click="openFileDialog"
     />
 
-    <div :style="{ width: size }">
+    <div :style="{ width: size }" v-if="!disabled">
       <label class="block py-1 mt-2 text-center text-white bg-green-500 cursor-pointer" for="single">
         {{ uploading ? "Uploading ..." : "Upload" }}
       </label>
@@ -21,6 +23,7 @@
         style="visibility: hidden; position: absolute"
         type="file"
         id="single"
+        ref="fileButton"
         accept="image/*"
         @change="uploadAvatar"
         :disabled="uploading"
@@ -37,11 +40,18 @@ const { supabase } = useSupabase();
 export default {
   props: {
     path: String,
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: "10em"
+    }
   },
   emits: ["upload", "update:path"],
   setup(prop, { emit }) {
     const { path } = toRefs(prop)
-    const size = ref("10em")
     const uploading = ref(false)
     const src = ref("")
     const files = ref()
@@ -85,17 +95,24 @@ export default {
       }
     }
 
+    const fileButton = ref(null);
+    const openFileDialog = () => {
+      if (props.disabled) return
+      fileButton.value.click();
+    }
+
     watch(path, () => {
       path.value ? downloadImage() : ""
     })
 
     return {
       path,
-      size,
       uploading,
       src,
       files,
+      fileButton,
 
+      openFileDialog,
       uploadAvatar,
     }
   },

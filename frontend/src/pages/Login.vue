@@ -2,7 +2,7 @@
   <at-auth-box>
     <at-auth-form 
         :form-data="formData"
-        app-name="SupaUp"
+        app-name="Supa Up"
         :is-loading="isLoading"
         :mode="mode"
         @submit="onSubmit"

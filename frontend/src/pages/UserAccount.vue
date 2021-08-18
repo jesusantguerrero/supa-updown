@@ -40,11 +40,12 @@ const isLoading = ref(false);
 const { supabase, getProfile } = useSupabase();
 
 getProfile().then( user => {
+  console.log(user);
   formData.username = user.username;
   formData.website = user.website;
   formData.avatar_url = user.avatar_url;
-}).catch( err => {
-  console.error(err);
+}).catch(err => {
+  console.log(err)
 })
 
 const updateProfile = async () => {
