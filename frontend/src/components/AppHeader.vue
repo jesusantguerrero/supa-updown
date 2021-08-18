@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-between px-10 py-4">
+  <div class="flex justify-between px-10 py-4 mb-10 border-b-4 border-green-400 shadow-md">
     <h1 class="font-bold text-gray-700"> 
-      <router-link :to="{name: 'dashboard'}">
-        SupaUp
+      <router-link :to="{name: 'dashboard'}" class="text-xl font-bold">
+        Supa Up
       </router-link>
     </h1>
     <div class="space-x-3">
