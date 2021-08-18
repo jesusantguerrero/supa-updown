@@ -1,4 +1,4 @@
 require('dotenv').config()
-const { runBackground } = require('./script');
+const { runBackground } = require('./utils/runBackground');
 
 runBackground();
