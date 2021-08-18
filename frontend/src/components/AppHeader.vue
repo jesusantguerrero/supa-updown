@@ -6,6 +6,11 @@
       </router-link>
     </h1>
     <div class="space-x-3">
+        <router-link :to="{name: 'create-page'}"
+          class="text-green-500"
+        >
+          Create Page
+        </router-link>
         <router-link :to="{name: 'account'}">
             {{ userName }}
         </router-link> 

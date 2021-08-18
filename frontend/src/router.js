@@ -1,4 +1,5 @@
 import Dashboard from "./pages/Dashboard.vue"
+import PageBoard from "./pages/PageBoard.vue"
 import Account from "./pages/UserAccount.vue"
 import Status from "./pages/Status.vue"
 import Login from "./pages/Login.vue"
@@ -14,6 +15,11 @@ const routes = [
     path: "/dashboard", 
     name: "dashboard",
     component: Dashboard,
+  },
+  { 
+    path: "/create-page", 
+    name: "create-page",
+    component: PageBoard,
   },
   { 
     path: "/account", 
@@ -80,12 +86,13 @@ const { isAuthenticated } = useSupabase();
 
 myRouter.beforeEach(async (to, _from, next) => {
   const user = await isAuthenticated();
-  const loginRoutes = ['/login', '/register'];
+  const loginRoutes = ['/login', '/register', '/'];
   const isPublicRoute = to.matched.some( record => record.meta.requiresAuth === false );
   const isLoginRoute = to.matched.some(record => loginRoutes.includes(record.path))
   if (!isPublicRoute && !user) {
     next({name: "login"})
   } else if (isPublicRoute && user && isLoginRoute) {
+    debugger;
     next({name: "dashboard"})
   } else {
     next();
