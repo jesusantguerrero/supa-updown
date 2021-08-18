@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { useSiteApi } = require("./utils/useApiServer");
+const { useSiteApi } = require("./useApiServer");
 const { getAll, update } = useSiteApi();
 const { differenceInSeconds, addMinutes, format } = require('date-fns')
 const SLICE_SIZE = 30;

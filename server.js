@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { runBackground } = require('./script');
+const { runBackground } = require('./utils/runBackground');
 const express = require('express');
 const app = express()
 
