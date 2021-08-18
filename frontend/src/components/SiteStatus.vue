@@ -10,16 +10,13 @@
   <div class="px-5 py-2 mt-10 text-center md:px-52">
     <div class="flex justify-between">
       <div class="flex text-left">
-        <div
-          class="w-16 h-16 mr-5 transition rounded-lg cursor-pointer hover:bg-gray-400 hover:bg-opacity-10"
-          v-if="page.icon"
-        >
-            <img
-                :src="page.icon"
-                alt=""
-                srcset=""
-            />
-        </div>
+        <Avatar 
+          v-model:path="page.logo" 
+          size="100px" 
+          class="mr-5"
+          v-if="page.logo"
+          :disabled="true"
+        />          
         <div class="{'ml-5'">
           <h2 class="text-3xl font-bold text-gray-500"> {{ page.title }}</h2>
           <h3 class="mt-1 text-lg font-bold text-gray-600"> {{ page.description }}</h3>
@@ -44,6 +41,7 @@
 
 <script setup>
 import SiteDashboard from './site/SiteDashboard.vue';
+import Avatar from "./Avatar.vue";
 import { usePageApi } from '../utils/useApi';
 import { reactive } from '@vue/reactivity';
 import { useNow } from "@vueuse/core";
@@ -51,6 +49,7 @@ import { format } from "date-fns";
 import { computed, onMounted } from 'vue-demi';
 import { AtButton } from 'atmosphere-ui';
 import { useRoute } from 'vue-router';
+
 defineProps({
   disabled: {
     type: Boolean,
@@ -61,7 +60,7 @@ defineProps({
 const  { get, getSites } = usePageApi();
 
 const page = reactive({
-  icon: '',
+  logo: '',
   title: '',
   description: '',
   date: '',
@@ -70,7 +69,7 @@ const page = reactive({
 
 const { params } = useRoute();
 get(params.page).then( async pageData => {
-  page.icon = pageData.icon;
+  page.logo = pageData.logo;
   page.title = pageData.title;
   page.description = pageData.description;
   page.sites = await getSites(params.page);

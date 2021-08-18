@@ -85,9 +85,8 @@ export function usePageApi() {
             )
         `)
         .eq('user_uid', supabaseState.user.id)
-        .limit(1);
         if (error) throw error;
-        return data && data[0];
+        return data;
     }
 
     const add = async (page) => {
@@ -119,6 +118,7 @@ export function usePageApi() {
     return {
         add,
         get,
+        getAll,
         getSites,
     }
 }
