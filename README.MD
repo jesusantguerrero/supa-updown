@@ -6,13 +6,20 @@ A demo project using Vite.js, Vue 3 and Supabase. Is a site status check
 
 ## Features
 [x] Add Multiple Sites
+
 [x] Public status pages
+
 [x] Run background site checks
 
+
 Roadmap
+
 [] Delete and edit pages and sites
+
 [] Send notifications via email
+
 [] Prune accounts and sites daily in the demo version (for performance reasons in demo)
+
 [] Activate creation of status and pages (24 hours) in demo 
 
 ## Demo
