@@ -7,7 +7,18 @@ A demo project using Vite.js, Vue 3 and Supabase. Is a site status check
 ## Demo
 [supaup](https://supa-updown.web.app/)
 
-## Customize and make it your own
+## Prerequisites
+
+| Prerequisite                                          | Version |
+| ------------------------------------------------------| ------- |
+| [Supabase Account](https://app.supabase.io/)                                           |    --   |
+| [Node.js](http://nodejs.org)                          | `~ ^12.20`  |
+| npm (comes with Node) or yarn (used)                  | `~ ^6.14.8`  |
+
+### SQL Schema
+// TODO
+
+## Easy deploy on netlify
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/jesusantguerrero/supa-updown)
 
@@ -17,3 +28,40 @@ Clicking this button will clone the repo to your GitHub account and instantly de
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 ```
+
+## Run Locally
+
+```shell
+node -v
+```
+
+### Cloning the repo
+
+```bash
+  git clone https://github.com/jesusantguerrero/supa-updown.git
+```
+
+Go to the project directory
+
+```bash
+  cd supa-updown
+```
+
+Install dependencies
+
+```bash
+  npm setup
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+Running background site-checks
+
+```bash
+  npm run background
+```
+
