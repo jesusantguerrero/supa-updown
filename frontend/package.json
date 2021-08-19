@@ -4,9 +4,9 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "deploy:hosting": "npm run build && firebase deploy --only=hosting",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy:hosting": "npm run build && firebase deploy --only=hosting"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.20.0",
@@ -29,7 +29,6 @@
     "@vue/compiler-sfc": "^3.0.5",
     "autoprefixer": "^10.3.1",
     "babel-loader": "^8.2.2",
-    "localforage": "^1.9.0",
     "naive-ui": "^2.16.2",
     "postcss": "^8.3.5",
     "sass": "^1.35.2",

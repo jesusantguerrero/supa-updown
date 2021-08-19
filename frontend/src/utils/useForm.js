@@ -16,31 +16,31 @@ export default function useForm(...props) {
                 carry[key] = this[key]
                 return carry
               }, {})
-          },
-          transform(callback) {
-            transform = callback
-      
-            return this
-          },
-          reset(...fields) {
-            let clonedDefaults = cloneDeep(defaults)
-            if (fields.length === 0) {
-              Object.assign(this, clonedDefaults)
-            } else {
-              Object.assign(
-                this,
-                Object
-                  .keys(clonedDefaults)
-                  .filter(key => fields.includes(key))
-                  .reduce((carry, key) => {
-                    carry[key] = clonedDefaults[key]
-                    return carry
-                  }, {}),
-              )
-            }
-      
-            return this
-          },
+        },
+        transform(callback) {
+          transform = callback
+    
+          return this
+        },
+        reset(...fields) {
+          let clonedDefaults = cloneDeep(defaults)
+          if (fields.length === 0) {
+            Object.assign(this, clonedDefaults)
+          } else {
+            Object.assign(
+              this,
+              Object
+                .keys(clonedDefaults)
+                .filter(key => fields.includes(key))
+                .reduce((carry, key) => {
+                  carry[key] = clonedDefaults[key]
+                  return carry
+                }, {}),
+            )
+          }
+    
+          return this
+        },
     })
 
     watch(form, newValue => {
