@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 px-52">
+  <div class="py-2 mt-10 px-52">
     <page-form 
       :sites="sites"
       @submit="addPage"

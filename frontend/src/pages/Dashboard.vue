@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 px-52">
+  <div class="py-2 mt-10 px-52">
     <h2 class="px-2 text-xl font-bold"> Sites </h2>
     <site-dashboard 
       :sites="state.sites"

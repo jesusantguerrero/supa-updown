@@ -16,7 +16,7 @@
     import { reactive, ref } from '@vue/reactivity';
     import { AtAuthBox, AtAuthForm } from 'atmosphere-ui';
     import { useRouter } from 'vue-router';
-    import { useSupabase } from '../utils/useSupabase';
+    import { useSupabase } from '../../utils/useSupabase';
     
     const props = defineProps({
         mode: {

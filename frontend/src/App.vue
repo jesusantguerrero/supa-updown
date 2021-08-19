@@ -6,7 +6,13 @@
 
 <script setup>
   import AppHeader from './components/AppHeader.vue';
-  import { supabaseState } from './utils/useSupabase';
+  import { supabaseState, useSupabase } from './utils/useSupabase';
+  import { avoidLoginRoutes } from  './router';
+  import { useRoute } from 'vue-router';  
+  const { initSupabase } = useSupabase();
+
+
+  initSupabase(avoidLoginRoutes.bind(null, useRoute()));
 </script>
 
 <style>

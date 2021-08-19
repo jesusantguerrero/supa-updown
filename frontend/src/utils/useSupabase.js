@@ -12,8 +12,14 @@ export function useSupabase() {
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-    const logout = () => {
-        supabase.auth.signOut();
+    const logout = async () => {
+        const { data, error } = await supabase.auth.signOut();
+        if (error) {
+            throw new Error(error);
+        }
+        
+        supabaseState.user = {};
+        return data;
     }
 
     const getProfile = async () => {  
@@ -30,12 +36,10 @@ export function useSupabase() {
     }
 
     
-    const initSupabase = () => {
-        console.log("here", supabaseState.user)
+    const initSupabase = (authenticatedCallback) => {
         supabase.auth.onAuthStateChange((_, session) => {
-            console.log("here")
             supabaseState.user = session ? session.user : {};
-            const user = session ? session.user : null;
+            authenticatedCallback && authenticatedCallback(session)
         });
     };
 

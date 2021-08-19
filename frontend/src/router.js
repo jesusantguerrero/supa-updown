@@ -1,15 +1,11 @@
 import Dashboard from "./pages/Dashboard.vue"
 import PageBoard from "./pages/PageBoard.vue"
-import Account from "./pages/UserAccount.vue"
+import Account from "./pages/account/UserAccount.vue"
 import Status from "./pages/Status.vue"
-import Login from "./pages/Login.vue"
+import Login from "./pages/auth/Login.vue"
 import { createRouter, createWebHistory } from "vue-router";
-import { supabaseState, useSupabase } from "./utils/useSupabase";
-// import { isAuthenticated } from "./utils/useSupabase";
+import {  useSupabase } from "./utils/useSupabase";
 
-// 2. Define some routes
-// Each route should map to a component.
-// We'll talk about nested routes later.
 const routes = [
   { 
     path: "/dashboard", 
@@ -84,19 +80,31 @@ const myRouter = createRouter({
 
 const { isAuthenticated } = useSupabase();
 
+const loginRoutes = ['/login', '/register', '/'];
+
 myRouter.beforeEach(async (to, _from, next) => {
   const user = await isAuthenticated();
-  const loginRoutes = ['/login', '/register', '/'];
+  debugger;
   const isPublicRoute = to.matched.some( record => record.meta.requiresAuth === false );
   const isLoginRoute = to.matched.some(record => loginRoutes.includes(record.path))
   if (!isPublicRoute && !user) {
     next({name: "login"})
   } else if (isPublicRoute && user && isLoginRoute) {
-    debugger;
     next({name: "dashboard"})
   } else {
     next();
   }
 });
+
+
+
+export const avoidLoginRoutes = (route, isAuthenticated) => {
+  if (isAuthenticated && route.matched.some(record => loginRoutes.includes(record.path))) {
+    myRouter.push({ name: "dashboard" });
+  } else if (!isAuthenticated) {
+    myRouter.push({ name: "login" });
+  }
+  return
+}
 
 export default myRouter;
