@@ -1,5 +1,5 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
-const { runBackground } = require('../../../utils/runBackground');
+const { runBackground } = require('../../utils/runBackground');
 const handler = async () => {
     await runBackground();
     return {

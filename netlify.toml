@@ -1,7 +1,6 @@
 [build]
-  base = "frontend"
-  command = "npm run build"
-  publish = "dist"
+  command = "npm i && cd frontend && npm i && npm run build"
+  publish = "frontend/dist"
 
 [dev]
   base = "frontend"
@@ -14,4 +13,3 @@
 [functions]
   directory = "functions/"
   included_files = ["package.json"]
-
