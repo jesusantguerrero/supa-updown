@@ -84,7 +84,6 @@ const loginRoutes = ['/login', '/register', '/'];
 
 myRouter.beforeEach(async (to, _from, next) => {
   const user = await isAuthenticated();
-  debugger;
   const isPublicRoute = to.matched.some( record => record.meta.requiresAuth === false );
   const isLoginRoute = to.matched.some(record => loginRoutes.includes(record.path))
   if (!isPublicRoute && !user) {

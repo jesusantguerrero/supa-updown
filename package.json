@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "background": "node ."
+    "background": "node .",
+    "setup": "npm i && cd frontend && npm i",
+    "dev": "cd frontend && npm run dev"
   },
   "author": "Jesus Guerrero",
   "license": "MIT",
