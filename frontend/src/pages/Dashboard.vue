@@ -42,6 +42,7 @@ defineProps({
     default: false
   }
 })
+
 const state = reactive({
   sites: [],
   pages: []
@@ -50,6 +51,7 @@ const state = reactive({
 getAll().then((siteData) => {
   state.sites.push(...siteData)
 });
+
 const addSite = (site) => {
   add(site).then(() => {
     state.sites.push(site);

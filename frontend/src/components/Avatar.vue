@@ -103,7 +103,7 @@ export default {
 
     watch(path, () => {
       path.value ? downloadImage() : ""
-    })
+    }, { immediate: true })
 
     return {
       path,

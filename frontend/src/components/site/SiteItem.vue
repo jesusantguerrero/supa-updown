@@ -1,14 +1,22 @@
 <template>
   <div class="flex items-center px-5 py-3 space-x-10" @submit.prevent="submit">
-    <div class="flex w-2/12">
-        <div class="text-green-500"><i class="fa fa-lock"></i></div>
+    <div class="flex items-center w-2/12">
+        <img
+            :src="getFavicon(value)"
+            alt="favicon"
+            srcset=""
+            class="w-5 h-5 mr-1"
+        />
+        <div class="text-green-500">
+            <ILock class="w-5 mr-1 fill-current" />
+        </div>
         <div class="">
             <span class="text-green-500">{{ item.protocol }}</span>
             <span>{{ item.url }}</span>
         </div>
     </div>
     <div class="w-1/12">
-        <div class="w-12 px-2 py-1 font-bold rounded-md" :class="statusColors" v-if="item.lastResponse">
+        <div class="w-12 px-2 py-1 font-bold rounded-md" :class="state.statusColors" v-if="item.lastResponse">
             <span>{{ item.lastResponse.status }}</span>
             <span class="ml-1"> {{ item.lastResponse.message }}</span>
         </div>
@@ -23,51 +31,47 @@
         <span>10 min</span>
     </div>
     <div>
-        <span> {{ uptimePercent }}%</span>
+        <span> {{ state.uptimePercent }}%</span>
         <span class="font-bold text-green-500"> Operational</span>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, defineComponent, reactive, toRefs } from 'vue'
 import SiteUptime  from './SiteUptime.vue';
+import ILock from "../icons/i-lock.svg";
 
-export default defineComponent({
-    components: { SiteUptime },
-    props: {
-        item: {
-            type: Object,
-            required: true,            
-        },
+const props = defineProps({
+    item: {
+        type: Object,
+        required: true,            
     },
-    setup(props, { emit }) {
-        const state = reactive({
-            uptime: computed(() => {
-                return props.item.responses ? props.item.responses.reduce((dailyResponse, response) => {
-                    dailyResponse.calls += response.calls;
-                    dailyResponse.success += response.success;
-                    return dailyResponse;
-                }, {calls: 0, success: 0 }) : { calls: 0, success: 0 };
-            }),
-            uptimePercent: computed(() => {
-                const percent = state.uptime.success / state.uptime.calls * 100;
-                return percent.toFixed(2);
-            }),
-            statusColors: computed(() => {
-                const colors = {
-                    500: 'bg-red-100 text-red-500',
-                    200: 'bg-green-100 text-green-500',
-                }
-                return colors[props.item.lastResponse.status] || colors[500];
-            })
-        })
+});
 
-
-
-        return {
-            ...toRefs(state),
+const state = reactive({
+    uptime: computed(() => {
+        return props.item.responses ? props.item.responses.reduce((dailyResponse, response) => {
+            dailyResponse.calls += response.calls;
+            dailyResponse.success += response.success;
+            return dailyResponse;
+        }, {calls: 0, success: 0 }) : { calls: 0, success: 0 };
+    }),
+    uptimePercent: computed(() => {
+        const percent = state.uptime.success / state.uptime.calls * 100;
+        return percent.toFixed(2);
+    }),
+    statusColors: computed(() => {
+        const colors = {
+            500: 'bg-red-100 text-red-500',
+            200: 'bg-green-100 text-green-500',
         }
-    },
+        return colors[props.item.lastResponse.status] || colors[500];
+    })
 })
+
+const getFavicon = () => {
+    const url = props.item.protocol + props.item.url;
+    return url && `https://www.google.com/s2/favicons?domain=${url}`;
+}      
 </script>

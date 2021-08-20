@@ -29,7 +29,7 @@
     <div class="mt-10">
       <site-dashboard
         :sites="page.sites"
-        :disabled="disabled"
+        :disabled="true"
       />
     </div>
     <div class="mt-5 text-left">
@@ -78,6 +78,5 @@ get(params.page).then( async pageData => {
 
 
 const now = useNow();
-
 const formattedDate = computed(() => format(now.value, 'iiii dd, MMMM yyyy, h:mm:ss a'))
 </script>
