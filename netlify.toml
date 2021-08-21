@@ -2,6 +2,10 @@
   command = "npm i && cd frontend && npm i && npm run build"
   publish = "frontend/dist"
 
+[template.environment]
+  VITE_SUPABASE_URL = ""
+  VITE_SUPABASE_ANON_KEY = ""
+  SUPABASE_SECRET = ""
 [dev]
   base = "frontend"
   command = "npm run dev"

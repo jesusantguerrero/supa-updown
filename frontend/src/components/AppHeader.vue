@@ -14,7 +14,7 @@
         <router-link :to="{name: 'account'}">
             {{ userName }}
         </router-link> 
-        <at-button class="bg-green-500" @click="signOut">Logout</at-button>
+        <at-button type="success" @click="signOut">Logout</at-button>
     </div>
   </div>
 </template>
