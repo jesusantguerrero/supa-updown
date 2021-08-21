@@ -37,6 +37,7 @@
 <script>
 import { defineComponent, reactive, toRefs } from 'vue'
 import useForm from "../../utils/useForm";
+import { supabaseState } from "../../utils/useSupabase"
 
 export default defineComponent({
     setup(props, { emit }) {
@@ -59,6 +60,7 @@ export default defineComponent({
             },
             lastResponse: {},
             responses: [],
+            listeners: [supabaseState.user.email],
         });
 
         const submit = () => {

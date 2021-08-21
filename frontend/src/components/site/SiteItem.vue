@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col px-5 py-3 md:space-x-10 md:items-center md:flex-row md:flex" @submit.prevent="submit">
-    <div class="flex items-center justify-between md:w-2/12">
+    <div class="flex items-center justify-between md:w-3/12">
         <div class="flex">
             <img
                 :src="getFavicon(value)"
@@ -30,7 +30,7 @@
             <site-uptime :responses="item.responses" class="gap-0.5 md:ml-5 opacity-60"/>
         </div>
     </div>
-    <div class="flex items-center justify-around w-full mt-2 md:mt-0 md:space-x-2">
+    <div class="flex items-center justify-around w-full mt-2 md:w-3/12 md:justify-end md:mt-0 md:space-x-2">
         <div>
             <span class="font-bold text-gray-500"> <i class="fa fa-clock-o" />{{ item.interval}} min</span>
         </div>
@@ -63,13 +63,13 @@ const props = defineProps({
 const state = reactive({
     uptime: computed(() => {
         return props.item.responses ? props.item.responses.reduce((dailyResponse, response) => {
-            dailyResponse.calls += response.calls;
-            dailyResponse.success += response.success;
+            dailyResponse.calls = sum(dailyResponse.calls,  response.calls);
+            dailyResponse.success = sum(dailyResponse.success, response.success);
             return dailyResponse;
         }, {calls: 0, success: 0 }) : { calls: 0, success: 0 };
     }),
     uptimePercent: computed(() => {
-        const percent = state.uptime.success / state.uptime.calls * 100;
+        const percent = (state.uptime.success / state.uptime.calls * 100) || 0;
         return percent.toFixed(2);
     }),
     statusColors: computed(() => {
@@ -80,6 +80,10 @@ const state = reactive({
         return colors[props.item.lastResponse.status] || colors[500];
     })
 })
+
+const sum = (number1, number2) => {
+    return Number(number1) + Number(number2)
+}
 
 const getFavicon = () => {
     const url = props.item.protocol + props.item.url;
