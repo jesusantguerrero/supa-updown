@@ -8,9 +8,9 @@
  </at-field>
  <div class="flex justify-between">
     <at-field label="Available pages" class="w-full">
-        <div v-for="site in sites" :key="site.title" class="flex items-center">
+        <div v-for="site in form.sites" :key="site.title" class="flex items-center w-full">
             <at-switch v-model="site.selected" />
-            <site-item :item="site"  />
+            <site-item :item="site"  class="w-full" />
         </div>
     </at-field>
  </div>
@@ -18,9 +18,11 @@
 </template>
 
 <script setup>
-import Avatar from "../Avatar.vue";
+import { reactive, watch, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { AtField, AtInput, AtTextarea, AtButton, AtSwitch } from "atmosphere-ui";
-import { reactive } from "vue";
+import { usePageApi, useForm } from "../../utils";
+import Avatar from "../Avatar.vue";
 import SiteItem  from "../site/SiteItem.vue";
 
 const props = defineProps({
@@ -32,15 +34,39 @@ const props = defineProps({
 
 const emit = defineEmits(['submit']);
 
-const form = reactive({
+const form = useForm({
+    id: "",
     logo: "",
     title: "",
     description: "",
-    sites: [],
-})
+    sites: props.sites || []
+});
+
+const { params } = useRoute();
+const { get } = usePageApi();
+
+const setForm = (page) => {
+    const selected = page.page_sites.map(pSite => pSite.site_id);
+    form.id = page.id;
+    form.logo = page.logo;
+    form.title = page.title;
+    form.description = page.description;
+    form.sites = form.sites.map(site => ({
+        ...site,
+        selected: selected.includes(site.id),
+    })).sort((a, b) => b.selected - a.selected);
+}
+
+watch(params.id, (value) => {
+    if (params.id) {
+        get(params.id).then(setForm);
+    } else {
+        form.reset();
+    }
+}, { immediate : true })
 
 const onSubmit = () => {
-    form.sites = props.sites.filter(site => site.selected);
-    emit('submit', form)
+    form.sites = form.sites.filter(site => site.selected);
+    emit('submit', form.data())
 }
 </script>

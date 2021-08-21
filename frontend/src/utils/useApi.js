@@ -12,6 +12,16 @@ export async function addRows(tableName, rows) {
 
     if (error) throw error;
     return data;
+}
+
+export async function updateRow(tableName, row) {
+    const { data, error } = await supabase
+    .from(tableName)
+    .update(row, { returning: "representation" })
+    .eq("id", row.id)
+
+    if (error) throw error;
+    return data;
 } 
 export function useSiteApi() {    
     const add = async (site) => {
@@ -68,7 +78,8 @@ export function usePageApi() {
         const { data, error } = await supabase.from('pages')
         .select(`*,
             page_sites (
-                id
+                id,
+                site_id
             )
         `)
         .eq('id', pageId)
@@ -103,6 +114,21 @@ export function usePageApi() {
         return savedPage;
     };
 
+    const update = async (page) => {
+        const pageSites = [...page.sites];
+        delete page.sites;
+
+        await supabase.from('page_sites').delete().eq('page_id', page.id);
+        const savedPage = await updateRow('pages', page)
+        const savedSites = await addRows('page_sites', pageSites.map(site => ({
+            page_id: savedPage[0].id,
+            site_id: site.id,
+            name: site.alias || site.url,
+        })));
+        savedPage[0].sites = savedSites;
+        return savedPage;
+    };
+
     const remove = async (pageId) => {
         await supabase.from('page_sites').delete().eq('page_id', pageId);
         return await supabase.from('pages').delete().eq('id', pageId);
@@ -123,6 +149,7 @@ export function usePageApi() {
     return {
         add,
         get,
+        update,
         remove,
         getAll,
         getSites,

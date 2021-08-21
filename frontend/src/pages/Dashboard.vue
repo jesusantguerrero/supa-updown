@@ -26,6 +26,7 @@
 import { reactive } from 'vue';
 import { AtButton } from "atmosphere-ui";
 import { useMessage } from "naive-ui";
+import { useRouter } from "vue-router";
 import { useSiteApi, usePageApi } from '../utils/useApi';
 import SiteDashboard from '../components/site/SiteDashboard.vue';
 import PageItem from '../components/page/PageItem.vue';
@@ -62,7 +63,9 @@ getPages().then((pageData) => {
   state.pages.push(...pageData);
 });
 
+const { push } = useRouter()
 const onEditPage = (page) => {
+  push({ name : 'page', params : { id : page.id } });
 }
 
 const message = useMessage();

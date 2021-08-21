@@ -13,8 +13,13 @@ const routes = [
     component: Dashboard,
   },
   { 
-    path: "/create-page", 
+    path: "/pages/create", 
     name: "create-page",
+    component: PageBoard,
+  },
+  {
+    path: "/pages/:id/edit",
+    name: 'page',
     component: PageBoard,
   },
   { 
