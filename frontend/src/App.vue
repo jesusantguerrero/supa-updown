@@ -1,6 +1,8 @@
 <template>
   <app-header v-if="supabaseState.user.email" />
-  <router-view />
+  <n-message-provider>
+    <router-view />
+  </n-message-provider>
 </template>
 
 
@@ -9,6 +11,7 @@
   import { supabaseState, useSupabase } from './utils/useSupabase';
   import { avoidLoginRoutes } from  './router';
   import { useRoute } from 'vue-router';  
+  import { NMessageProvider } from 'naive-ui';  
   const { initSupabase } = useSupabase();
 
 

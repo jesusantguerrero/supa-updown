@@ -103,6 +103,11 @@ export function usePageApi() {
         return savedPage;
     };
 
+    const remove = async (pageId) => {
+        await supabase.from('page_sites').delete().eq('page_id', pageId);
+        return await supabase.from('pages').delete().eq('id', pageId);
+    }
+
     const getSites = async (pageId) => {
         const { data, error } = await supabase.from('page_sites')
         .select(`*,
@@ -118,6 +123,7 @@ export function usePageApi() {
     return {
         add,
         get,
+        remove,
         getAll,
         getSites,
     }
