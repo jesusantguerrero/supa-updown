@@ -1,12 +1,14 @@
 <template>
 <div>
   <div class="flex justify-between p-5 font-bold text-white bg-gray-700 pb-14 md:px-52">
-    <h1 class="text-lg text-white md:text-3xl"> Supa updown </h1> 
+    <h1 class="text-lg text-white md:text-3xl"> Supa up </h1> 
     <div class="text-right">
       Status Page
       <small class="block"> {{ formattedDate }} </small>
     </div>
   </div>
+
+  <!-- status page header -->
   <div class="px-5 py-2 mt-10 text-center md:px-52">
     <div class="flex flex-col justify-between md:flex-row md:flex">
       <div class="flex text-left">
@@ -26,12 +28,16 @@
         <at-button class="font-bold text-green-500 bg-green-100 border border-green-400"> Subscribe to updates </at-button>
       </div>
     </div>
+
+    <!-- sites -->
     <div class="mt-10">
       <site-dashboard
         :sites="page.sites"
         :disabled="true"
       />
     </div>
+
+    <!--  incidents -->
     <div class="mt-5 text-left">
       <h4 class="text-xl font-bold text-gray-500"> Past incidents </h4> 
     </div>

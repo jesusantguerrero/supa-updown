@@ -167,6 +167,7 @@ function parseSite(site) {
         http_request: site.httpRequest,
         last_response: site.lastResponse,
         responses: site.responses || [],
+        listeners: site.listeners || [],
     };
 }
 
@@ -182,5 +183,6 @@ function siteToObject(site) {
         httpRequest: site.http_request,
         lastResponse: site.last_response,
         responses: site.responses || [],
+        listeners: site.listeners || [],
     };
 }
