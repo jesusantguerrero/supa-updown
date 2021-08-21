@@ -5,10 +5,9 @@ const { add: addNotifications } = useNotificationApi();
 const { differenceInSeconds, addMinutes, format } = require('date-fns');
 const { useMail } = require("./useMail");
 const { defaultConfig } = require("../config");
-const SLICE_SIZE = 30;
 
 exports.runBackground = () => {
-    getAll().then(sites => {
+    getAll(defaultConfig.maxSiteChecksPerRun).then(sites => {
         sites.forEach(updateCall);
     }).catch(error => {
         console.log(error)
@@ -75,9 +74,9 @@ function prepareResponse(statusResponses, newResponse, nextCheckDate) {
             success: Number(saved.success || 0) + Number(newResponse.success || 0),
             fails: Number(saved.fails || 0) + Number(newResponse.fails || 0),
         };
-        responses = statusResponses.slice(-SLICE_SIZE);
+        responses = statusResponses.slice(-defaultConfig.historyDays);
     } else {
-        responses = [...statusResponses, newResponse].slice(-SLICE_SIZE);
+        responses = [...statusResponses, newResponse].slice(-defaultConfig.historyDays);
     }
     const formData = { last_response: newResponse, responses, next_check_date: nextCheckDate }
     return formData;

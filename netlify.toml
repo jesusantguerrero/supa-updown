@@ -6,6 +6,15 @@
   VITE_SUPABASE_URL = ""
   VITE_SUPABASE_ANON_KEY = ""
   SUPABASE_SECRET = ""
+  SUPABASE_ANON_KEY = ""
+  SUPABASE_SERVICE_KEY = ""
+  MAIL_HOST = ""
+  MAIL_PORT= ""
+  MAIL_USER = ""
+  MAIL_PASS = ""
+  MAIL_FROM = "example@supaup.com"
+  MAX_NOTIFICATIONS_PER_RUN = 3
+  MAX_SITE_CHECKS_PER_RUN = 10
 
 [dev]
   base = "frontend"

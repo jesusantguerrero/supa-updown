@@ -1,10 +1,10 @@
 const { useNotificationApi } = require("./useApiServer");
 const { getAll: getNotifications, update: updateNotifications } = useNotificationApi();
 const { useMail } = require("./useMail");
-const EMAIL_SIZE = 3;
+const { defaultConfig } = require("../config");
 
 exports.runNotifications = () => {
-    getNotifications(EMAIL_SIZE).then(notifications => {
+    getNotifications(defaultConfig.maxNotificationsPerRun).then(notifications => {
         notifications.forEach( notification => workers[notification.channel](notification));
     }).catch(error => {
         console.log(error)

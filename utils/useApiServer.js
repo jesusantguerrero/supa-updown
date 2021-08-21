@@ -8,8 +8,8 @@ exports.useSiteApi = () => {
         return data;
     }
 
-    const getAll = async () => {
-        const { data, error } = await supabase.from('sites').select('*').order('next_check_date', 'asc').limit(100)
+    const getAll = async (limit = 100) => {
+        const { data, error } = await supabase.from('sites').select('*').lt('next_check_date', new Date().toISOString()).order('next_check_date', 'asc').limit(limit)
         if (error) throw error;
         return data.map(siteToObject);
     }
