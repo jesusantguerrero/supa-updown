@@ -17,6 +17,16 @@ const routes = [
     name: "create-page",
     component: PageBoard,
   },
+  { 
+    path: "/incidents/create", 
+    name: "create-incident",
+    component: PageBoard,
+  },
+  { 
+    path: "/updates/create", 
+    name: "create-update",
+    component: PageBoard,
+  },
   {
     path: "/pages/:id/edit",
     name: 'page',

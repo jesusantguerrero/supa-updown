@@ -7,6 +7,10 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      display: ['Poppins', 'system-ui', 'sans-serif'],
+      body: ['Poppins', 'system-ui', 'sans-serif'],
+    },
     extend: {
       gridTemplateColumns: {
         24: 'repeat(24, minmax(0, 1fr))',
