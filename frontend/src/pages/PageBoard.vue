@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 mt-10 px-52">
+  <div class="py-2 mt-10 mb-20 px-52">
     <page-form
       v-if="sites.length"
       :sites="sites"
