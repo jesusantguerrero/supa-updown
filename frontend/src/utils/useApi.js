@@ -60,8 +60,12 @@ export function useSiteApi() {
     }
 
     const remove = async (siteId) => {
-        const sites = (await getAll()).filter(dbSite => dbSite.id !== siteId);
-        localStorage.setItem('sites', JSON.stringify(sites));
+        const isSiteUsed = (await supabase.from('page_sites').select('*', { count: 'exact' }).eq('site_id', siteId)).count > 0;
+        if (isSiteUsed) {
+            return { error: new Error('The site is used in an status page') };
+        } else {
+            return await supabase.from('sites').delete().eq('id', siteId);        
+        }
     }
 
     return {

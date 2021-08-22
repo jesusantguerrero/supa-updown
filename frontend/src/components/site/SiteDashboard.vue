@@ -5,7 +5,13 @@
         </div>
     </div>
     <div class="border divide-y divide-gray-200 shadow-lg">
-        <site-item :item="site" v-for="site in sites" :key="site.title" :show-controls="!disabled" />
+        <site-item 
+            v-for="site in sites" 
+            :key="site.title" 
+            :item="site" 
+            :show-controls="!disabled" 
+            @delete="$emit('delete', $event)"
+        />
         <site-item-form @submit="$emit('submit', $event)" v-if="!disabled" />
     </div>
 </template>
@@ -26,6 +32,8 @@ const props = defineProps({
     }
 });
 
+defineEmits(['delete']);
+
 const state = reactive({
     searchLabel: computed(() => {
         return  `Search ${props.sites.length} check(s)`;
@@ -33,8 +41,3 @@ const state = reactive({
 })
 
 </script>
-
-
-<style>
-
-</style>
