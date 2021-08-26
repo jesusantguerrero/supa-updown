@@ -1,10 +1,11 @@
 <template>
-  <div class="py-2 mt-10 px-52">
+  <div class="py-2 mt-10 mb-20 px-52">
     <h2 class="px-2 text-xl font-bold"> Sites </h2>
     <site-dashboard 
       :sites="state.sites"
       :disabled="disabled"
       @submit="addSite"
+      @delete="onDeleteSite"
     />
 
     <div class="mt-10">
@@ -31,7 +32,7 @@ import { useSiteApi, usePageApi } from '../utils/useApi';
 import SiteDashboard from '../components/site/SiteDashboard.vue';
 import PageItem from '../components/page/PageItem.vue';
 
-const  { add, getAll } = useSiteApi();
+const  { add, getAll, remove: removeSite } = useSiteApi();
 const  { getAll: getPages, remove: removePage } = usePageApi();
 
 defineProps({
@@ -46,6 +47,8 @@ const state = reactive({
   pages: []
 });
 
+const message = useMessage();
+// sites
 getAll().then((siteData) => {
   state.sites.push(...siteData)
 });
@@ -54,8 +57,18 @@ const addSite = (site) => {
   add(site).then(() => {
     state.sites.push(site);
   }).catch((error) => {
-    alert(error.description || error.message);
+    message.error(error.description || error.message);
   });
+}
+
+const onDeleteSite = async (siteId) => {
+  const { data, error } = await removeSite(siteId);
+  if (error) {
+    message.error(error.description || error.message);
+    return
+  }
+  state.sites = state.sites.filter((site) => site.id !== siteId);
+  message.success('Page deleted');
 }
 
 // pages
@@ -68,7 +81,6 @@ const onEditPage = (page) => {
   push({ name : 'page', params : { id : page.id } });
 }
 
-const message = useMessage();
 const onDeletePage = async (pageId) => {
   const { data, error } = await removePage(pageId);
   if (error) {

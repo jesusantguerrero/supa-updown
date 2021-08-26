@@ -1,4 +1,4 @@
-# Supa up
+![supaup](/frontend/src/assets/cover.png)
 
 ## Description
 
@@ -14,16 +14,16 @@ A demo project using Vite.js, Vue 3 and Supabase. Is a site status check you can
 
 Roadmap
 
-[] Delete and edit pages and sites
+[x] Delete and edit pages and sites
 
-[] Send notifications via email
+[x] Send notifications via email
 
 [] Prune accounts and sites daily in the demo version (for performance reasons in demo)
 
-[] Activate creation of status and pages (24 hours) in demo 
+[] Activate creation of status and pages (24 hours) in demo
 
 ## Demo
-[supaup](https://supa-updown.web.app/status/805cd35a-4b92-406f-9ec7-a442632188dc)
+[supaup](https://supa-updown.web.app/status/1a8ac430-34b0-421d-8557-397babcd5c03)
 
 ## Prerequisites
 

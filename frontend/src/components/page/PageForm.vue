@@ -35,7 +35,7 @@ const props = defineProps({
 const emit = defineEmits(['submit']);
 
 const form = useForm({
-    id: "",
+    id: null,
     logo: "",
     title: "",
     description: "",
@@ -67,6 +67,8 @@ watch(params.id, (value) => {
 
 const onSubmit = () => {
     form.sites = form.sites.filter(site => site.selected);
-    emit('submit', form.data())
+    const formData = form.data()
+    if (!formData.id) delete formData.id;
+    emit('submit', formData)
 }
 </script>

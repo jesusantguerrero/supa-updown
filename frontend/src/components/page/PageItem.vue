@@ -14,16 +14,16 @@
             <at-button 
                 class="text-red-500 border border-red-500 bg-red-50"
             >
-                Remove
+                <i class="fa fa-trash"></i>
             </at-button>
         </template>
-        Are you sure you want to remove this site?
+        Are you sure you want to remove this status page?
     </n-popconfirm>
     <at-button 
         class="text-green-500 border border-green-500 bg-green-50"
         @click="$emit('edit', page)"
     >
-        Edit
+        <i class="fa fa-edit"></i>
     </at-button>
     </div>
 </div>

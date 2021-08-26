@@ -40,6 +40,12 @@
     <!--  incidents -->
     <div class="mt-5 text-left">
       <h4 class="text-xl font-bold text-gray-500"> Past incidents </h4> 
+      <div class="pt-5 space-y-2">
+        <div v-for="incident in page.incidents">
+          <h4 class="font-bold">{{ incident.title }}</h4>
+          <p>{{ incident.description }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -63,7 +69,7 @@ defineProps({
   }
 })
 
-const  { get, getSites } = usePageApi();
+const  { get, getSites, getIncidents } = usePageApi();
 
 const page = reactive({
   logo: '',
@@ -79,7 +85,7 @@ get(params.page).then( async pageData => {
   page.title = pageData.title;
   page.description = pageData.description;
   page.sites = await getSites(params.page);
-  console.log(page);
+  page.incidents = await getIncidents(params.page);
 });
 
 

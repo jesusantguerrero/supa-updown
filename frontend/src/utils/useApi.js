@@ -60,8 +60,12 @@ export function useSiteApi() {
     }
 
     const remove = async (siteId) => {
-        const sites = (await getAll()).filter(dbSite => dbSite.id !== siteId);
-        localStorage.setItem('sites', JSON.stringify(sites));
+        const isSiteUsed = (await supabase.from('page_sites').select('*', { count: 'exact' }).eq('site_id', siteId)).count > 0;
+        if (isSiteUsed) {
+            return { error: new Error('The site is used in an status page') };
+        } else {
+            return await supabase.from('sites').delete().eq('id', siteId);        
+        }
     }
 
     return {
@@ -92,7 +96,14 @@ export function usePageApi() {
         const { data, error } = await supabase.from('pages')
         .select(`*,
             page_sites (
-                id
+                id,
+                sites (
+                    id,
+                    title,
+                    url,
+                    protocol,
+                    status
+                )
             )
         `)
         .eq('user_uid', supabaseState.user.id)
@@ -146,6 +157,14 @@ export function usePageApi() {
         return data.map(pageSites => siteToObject(pageSites.sites));
     }
 
+    const getIncidents = async (pageId) => {
+        const { data, error } = await supabase.from('incidents')
+        .select(`*`)
+        .eq('page_id', pageId);
+        if (error) throw error;
+        return data;
+    }
+
     return {
         add,
         get,
@@ -153,6 +172,29 @@ export function usePageApi() {
         remove,
         getAll,
         getSites,
+        getIncidents,
+    }
+}
+
+export function useIncidentApi() {
+    const add = async (incident) => {
+        const savedIncident = await addRows('incidents', [{
+            incident_id: incident.id,
+            page_id: incident.page_id,
+            title: incident.title,
+            description: incident.description,
+            status: incident.status,
+            sites: incident.sites.map(site => site.id),
+            notify_listeners: incident.notify_listeners,
+            log: incident.sites,
+            user_uid: supabaseState.user.id,
+        }])
+  
+        return savedIncident[0];
+    };
+
+    return {
+        add,
     }
 }
  

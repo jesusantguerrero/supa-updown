@@ -30,24 +30,35 @@
             <site-uptime :responses="item.responses" class="gap-0.5 md:ml-5 opacity-60"/>
         </div>
     </div>
-    <div class="flex items-center justify-around w-full mt-2 md:w-3/12 md:justify-end md:mt-0 md:space-x-2">
+    <div class="flex items-center justify-between w-full mt-2 md:w-3/12 md:justify-end md:mt-0 md:space-x-2">
         <div>
-            <span class="font-bold text-gray-500"> <i class="fa fa-clock-o" />{{ item.interval}} min</span>
+            <span class="font-bold text-gray-500"> <i class="mr-1 fa fa-clock" />{{ item.interval}} min</span>
         </div>
         <span class="block"> {{ state.uptimePercent }}%</span>
-        <span class="font-bold text-green-500"> Operational</span>
-        <at-button class="ml-2 text-red-500 border border-red-500 bg-red-50" v-if="showControls">
-            Remove
-        </at-button>
+        <span class="font-bold" :class="[state.siteStatusClass]"> {{ item.status }}</span>
+        <n-popconfirm
+            @positive-click="$emit('delete', item.id)"
+            v-if="showControls"
+        >
+            <template #trigger>
+                <at-button 
+                    class="text-red-500 border border-red-500 bg-red-50"
+                >
+                    <i class="fa fa-trash"></i>
+                </at-button>
+            </template>
+            Are you sure you want to remove this site?
+        </n-popconfirm>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, defineComponent, reactive, toRefs } from 'vue'
-import SiteUptime  from './SiteUptime.vue';
+import { computed, defineComponent, reactive, toRefs } from "vue"
+import SiteUptime  from "./SiteUptime.vue";
 import ILock from "../icons/i-lock.svg";
-import { AtButton } from 'atmosphere-ui';
+import { AtButton } from "atmosphere-ui";
+import { NPopconfirm } from "naive-ui";
 
 const props = defineProps({
     item: {
@@ -60,6 +71,8 @@ const props = defineProps({
     }
 });
 
+defineEmits(['delete'])
+
 const state = reactive({
     uptime: computed(() => {
         return props.item.responses ? props.item.responses.reduce((dailyResponse, response) => {
@@ -71,6 +84,16 @@ const state = reactive({
     uptimePercent: computed(() => {
         const percent = (state.uptime.success / state.uptime.calls * 100) || 0;
         return percent.toFixed(2);
+    }),
+    siteStatusClass: computed(() => {
+        const colors = {
+            OPERATIONAL: 'text-green-500',
+            DEGRADED: 'text-yellow-500',
+            PARTIAL: 'text-orange-500',
+            MAJOR: 'text-red-500',
+            MAINTENANCE: 'text-blue-500'
+        };
+        return colors[props.item.status] || 'text-gray-400';
     }),
     statusColors: computed(() => {
         const colors = {
