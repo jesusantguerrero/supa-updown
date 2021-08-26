@@ -19,7 +19,6 @@ export default function useForm(...props) {
         },
         transform(callback) {
           transform = callback
-    
           return this
         },
         reset(...fields) {
@@ -41,6 +40,17 @@ export default function useForm(...props) {
     
           return this
         },
+        submit(method, options) {
+          options = options || {}
+    
+          if (typeof method === "function") {
+            method('submit', transform(form.data()))
+          } else {
+            options.url = method
+          }
+          
+          options.onSuccess && options.onSuccess();
+        }
     })
 
     watch(form, newValue => {

@@ -11,6 +11,7 @@
         app-name="Supa Up"
         :is-loading="isLoading"
         :mode="mode"
+        submit-label="Send me the link"
         @submit="onSubmit"
         @link-pressed="onLinkPressed"
         btn-class="mb-2 font-bold border-2 border-green-400 rounded-md bg-gradient-to-br from-green-400 to-cyan-500"

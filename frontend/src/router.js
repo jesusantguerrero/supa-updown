@@ -1,5 +1,6 @@
 import Dashboard from "./pages/Dashboard.vue"
 import PageBoard from "./pages/PageBoard.vue"
+import Incidents from "./pages/Incidents.vue"
 import Account from "./pages/account/UserAccount.vue"
 import Status from "./pages/Status.vue"
 import Login from "./pages/auth/Login.vue"
@@ -20,12 +21,12 @@ const routes = [
   { 
     path: "/incidents/create", 
     name: "create-incident",
-    component: PageBoard,
+    component: Incidents,
   },
   { 
     path: "/updates/create", 
     name: "create-update",
-    component: PageBoard,
+    component: Incidents,
   },
   {
     path: "/pages/:id/edit",

@@ -35,7 +35,7 @@
             <span class="font-bold text-gray-500"> <i class="mr-1 fa fa-clock" />{{ item.interval}} min</span>
         </div>
         <span class="block"> {{ state.uptimePercent }}%</span>
-        <span class="font-bold text-green-500"> Operational</span>
+        <span class="font-bold" :class="[state.siteStatusClass]"> {{ item.status }}</span>
         <n-popconfirm
             @positive-click="$emit('delete', item.id)"
             v-if="showControls"
@@ -84,6 +84,16 @@ const state = reactive({
     uptimePercent: computed(() => {
         const percent = (state.uptime.success / state.uptime.calls * 100) || 0;
         return percent.toFixed(2);
+    }),
+    siteStatusClass: computed(() => {
+        const colors = {
+            OPERATIONAL: 'text-green-500',
+            DEGRADED: 'text-yellow-500',
+            PARTIAL: 'text-orange-500',
+            MAJOR: 'text-red-500',
+            MAINTENANCE: 'text-blue-500'
+        };
+        return colors[props.item.status] || 'text-gray-400';
     }),
     statusColors: computed(() => {
         const colors = {
