@@ -5,36 +5,35 @@
 A demo project using Vite.js, Vue 3 and Supabase. Is a site status check you can self host your own
 
 ## Features
-[x] Add Multiple Sites
+- [x] Add Multiple Sites
 
-[x] Public status pages
+- [x] Public status pages
 
-[x] Run background site checks
+- [x] Run background site checks
 
 
 Roadmap
 
-[x] Delete and edit pages and sites
+- [x] Delete and edit pages and sites
 
-[x] Send notifications via email
+- [x] Send notifications via email
 
-[] Prune accounts and sites daily in the demo version (for performance reasons in demo)
+- [ ] Prune accounts and sites daily in the demo version (for performance reasons in demo)
 
-[] Activate creation of status and pages (24 hours) in demo
+- [ ] Activate creation of status and pages (24 hours) in demo
+
+- [ ] Allow subscriptions to incidents
 
 ## Demo
 [supaup](https://supa-updown.web.app/status/1a8ac430-34b0-421d-8557-397babcd5c03)
 
 ## Prerequisites
 
-| Prerequisite                                          | Version |
-| ------------------------------------------------------| ------- |
-| [Supabase Account](https://app.supabase.io/)                                           |    --   |
-| [Node.js](http://nodejs.org)                          | `~ ^12.20`  |
-| npm (comes with Node) or yarn (used)                  | `~ ^6.14.8`  |
-
-### SQL Schema
-// TODO
+| Prerequisite                                          | Version    |
+| ------------------------------------------------------| ---------- |
+| [Supabase Account](https://app.supabase.io/)          |    --      |
+| [Node.js](http://nodejs.org)                          | `~ ^12.20` |
+| npm (comes with Node) or yarn (used)                  | `~ ^6.14.8`|
 
 ## Deploy your own
 
