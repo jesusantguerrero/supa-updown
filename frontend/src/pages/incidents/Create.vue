@@ -1,22 +1,23 @@
 <template>
   <div class="py-2 mt-10 mb-20 px-52">
     <incidents-form
-      v-if="pages.length"
-      :pages="pages"
+      v-if="state.pages.length"
+      :pages="state.pages"
+      :incidents="state.incidents"
       @submit="addIncident"
     />
   </div>
 </template>
 
 <script setup>
-import { reactive, nextTick } from 'vue';
+import { reactive, nextTick, computed } from 'vue';
 import { useMessage } from 'naive-ui';
 import { useRouter } from 'vue-router';
-import IncidentsForm from '../components/incidents/Form.vue';
-import { useIncidentApi, usePageApi } from '../utils/useApi';
+import IncidentsForm from '../../components/incidents/Form.vue';
+import { useIncidentApi, usePageApi } from '../../utils/useApi';
 
-const  { getAll } = usePageApi();
-const  { add, update } = useIncidentApi();
+const  { getAll: getPages } = usePageApi();
+const  { add, update, getAll: getIncidents } = useIncidentApi();
 
 defineProps({
   disabled: {
@@ -25,10 +26,22 @@ defineProps({
   }
 })
 
-const pages = reactive([]);
+const state = reactive({
+  pages: [],
+  incidents: [],
+  loading: {
+    pages: true,
+    incidents: true,
+    all: computed(() => state.loading.pages && state.loading.incidents)
+  },
+});
 
-getAll().then((pageData) => {
-  pages.push(...pageData);
+getPages().then((pageData) => {
+  state.pages.push(...pageData);
+});
+
+getIncidents('opened').then((incidents) => {
+  state.incidents.push(...incidents);
 });
 
 const message = useMessage();

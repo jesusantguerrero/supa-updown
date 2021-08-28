@@ -160,7 +160,8 @@ export function usePageApi() {
     const getIncidents = async (pageId) => {
         const { data, error } = await supabase.from('incidents')
         .select(`*`)
-        .eq('page_id', pageId);
+        .eq('page_id', pageId)
+        .is('incident_id', null);
         if (error) throw error;
         return data;
     }
@@ -179,7 +180,7 @@ export function usePageApi() {
 export function useIncidentApi() {
     const add = async (incident) => {
         const savedIncident = await addRows('incidents', [{
-            incident_id: incident.id,
+            incident_id: incident.incident_id,
             page_id: incident.page_id,
             title: incident.title,
             description: incident.description,
@@ -189,12 +190,61 @@ export function useIncidentApi() {
             log: incident.sites,
             user_uid: supabaseState.user.id,
         }])
+
+        if (incident.sites.length > 0) {
+            for (const site of incident.sites) {
+                await updateRow('sites', {
+                    id: site.id,
+                    status:site.status
+                });
+            }
+        }
+
+        if (incident.incident_id) {
+            updateRow('incidents', {
+                id: incident.incident_id,
+                status: incident.status
+            });
+        }
   
         return savedIncident[0];
     };
 
+    const get = async (id) => {
+        const { data, error } = await supabase.from('incidents')
+        .select(`*`)
+        .eq('id', id)
+        .is('incident_id', null)
+
+        if (error) throw error;
+        return data[0];
+    }
+
+    const getUpdates = async (parentId) => {
+        const { data, error } = await supabase.from('incidents')
+        .select(`*`)
+        .eq('incident_id', parentId)
+
+        if (error) throw error;
+        return data;
+    }
+
+    const getAll = async (status) => {
+        const { data, error } = await supabase.from('incidents')
+        .select(`*`)
+        .eq('user_uid', supabaseState.user.id)
+        .is('incident_id', null)
+        .neq('status', 'resolved');
+
+        if (error) throw error;
+        return data;
+    }
+
     return {
         add,
+        get,
+        getUpdates,
+        getAll,
     }
 }
  
