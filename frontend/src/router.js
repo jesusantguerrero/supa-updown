@@ -1,6 +1,7 @@
 import Dashboard from "./pages/Dashboard.vue"
 import PageBoard from "./pages/PageBoard.vue"
-import Incidents from "./pages/Incidents.vue"
+import IncidentsCreate from "./pages/incidents/Create.vue"
+import IncidentsView from "./pages/incidents/View.vue"
 import Account from "./pages/account/UserAccount.vue"
 import Status from "./pages/Status.vue"
 import Login from "./pages/auth/Login.vue"
@@ -21,12 +22,20 @@ const routes = [
   { 
     path: "/incidents/create", 
     name: "create-incident",
-    component: Incidents,
+    component: IncidentsCreate,
+  },
+  { 
+    path: "/incidents/:id", 
+    name: "view-incident",
+    component: IncidentsView,
+    meta: {
+      requiresAuth: false,
+    },
   },
   { 
     path: "/updates/create", 
     name: "create-update",
-    component: Incidents,
+    component: IncidentsCreate,
   },
   {
     path: "/pages/:id/edit",

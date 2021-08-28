@@ -2,14 +2,19 @@
  <div class="max-w-md mx-auto text-center" v-if="!form.page">
     <h2 class="mb-5 text-2xl font-bold text-gray-500"> Select a page for the incident </h2>
     <div class="space-y-2">
-        <div 
-            v-for="page in pages" 
-            :key="page.id" 
-            class="py-3 mx-5 bg-white border shadow-md cursor-pointer" 
-            @click="selectPage(page)"
-        >
-            {{ page.title }}
-        </div>
+        <template v-for="page in pages" :key="page.id">
+            <div 
+                class="py-3 mx-5 bg-white border shadow-md cursor-pointer" 
+                @click="selectPage(page)"
+            >
+                {{ page.title }}
+            </div>
+            <div class="pb-5 mx-5">
+                <div v-for="incident in incidents" class="transition cursor-pointer hover:font-bold" @click="selectIncident(incident, page)">
+                    <span class="text-gray-500">{{ incident.title }}</span>
+                </div>
+            </div>
+        </template>
     </div>
  </div>
  <form v-else @submit.prevent="onSubmit">
@@ -55,6 +60,10 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    incidents: {
+        type: Array,
+        default: () => [],
+    },
 })
 
 const emit = defineEmits(['submit']);
@@ -69,6 +78,7 @@ const form = useForm({
     status: "investigating",
     description: "",
     page: null,
+    incident: null,
     sites: props.sites || []
 });
 
@@ -78,6 +88,17 @@ const selectPage = (page) => {
     form.sites = page.page_sites.map(site => ({
         ...site.sites,
     }));
+}
+
+const selectIncident = (incident, page) => {
+    form.page = page;
+    form.sites = page.page_sites.map(site => ({
+        ...site.sites,
+    }));
+    form.incident = incident;
+    form.title = incident.title;
+    form.description = incident.description;
+    form.status = incident.status;
 }
 
 const { params } = useRoute();

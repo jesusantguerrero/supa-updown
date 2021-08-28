@@ -38,29 +38,21 @@
     </div>
 
     <!--  incidents -->
-    <div class="mt-5 text-left">
-      <h4 class="text-xl font-bold text-gray-500"> Past incidents </h4> 
-      <div class="pt-5 space-y-2">
-        <div v-for="incident in page.incidents">
-          <h4 class="font-bold">{{ incident.title }}</h4>
-          <p>{{ incident.description }}</p>
-        </div>
-      </div>
-    </div>
+    <Incident-List :incidents="page.incidents" />
   </div>
 </div>
 </template>
 
 <script setup>
-import SiteDashboard from '../components/site/SiteDashboard.vue';
-import Avatar from "../components/Avatar.vue";
-import { usePageApi } from '../utils/useApi';
-import { reactive } from '@vue/reactivity';
-import { useNow } from "@vueuse/core";
-import { format } from "date-fns";
-import { computed, onMounted } from 'vue-demi';
-import { AtButton } from 'atmosphere-ui';
-import { useRoute } from 'vue-router';
+  import { usePageApi } from '../utils/useApi';
+  import { reactive, computed } from 'vue';
+  import { useNow } from "@vueuse/core";
+  import { format } from "date-fns";'vue-demi';
+  import { AtButton } from 'atmosphere-ui';
+  import { useRoute } from 'vue-router';
+  import Avatar from "../components/Avatar.vue";
+  import SiteDashboard from '../components/site/SiteDashboard.vue';
+  import IncidentList from '../components/incidents/List.vue';
 
 defineProps({
   disabled: {
@@ -76,7 +68,8 @@ const page = reactive({
   title: '',
   description: '',
   date: '',
-  sites: []
+  sites: [],
+  incidents: []
 });
 
 const { params } = useRoute();

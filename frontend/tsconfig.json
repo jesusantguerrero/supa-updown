@@ -13,6 +13,9 @@
         // different options with a single tsconfig.json.
       }
     },
+    "volar" : {
+      "allowJS": true,
+    },
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",

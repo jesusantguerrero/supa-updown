@@ -2,7 +2,7 @@
 <div  class="flex justify-between px-5 py-2 text-gray-500 cursor-pointer">
     <div>
     <h4 class="font-bold">
-        <a :href="`/status/${page.id}`" target="_blank">{{ page.title }}</a>
+        <a :href="`/status/${page.id}`">{{ page.title }}</a>
     </h4>
     {{ page.description }}
     </div>
