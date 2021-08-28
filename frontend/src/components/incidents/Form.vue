@@ -127,7 +127,6 @@ watch(params.id, (value) => {
 const onSubmit = () => {
     const formData = form
     .transform((data) => {
-        debugger;
         return {
             incident_id: data.incident?.id,
             page_id: data.page.id,
