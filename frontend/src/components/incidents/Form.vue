@@ -22,12 +22,12 @@
         <at-input v-model="form.title" placeholder="Title" />
     </at-field>
     <at-field label="Status">
-        <at-input v-model="form.status" placeholder="Status" />
+        <n-select v-model:value="form.status" :options="state.incidentStatus" />
     </at-field>
     <at-field label="Message">
         <at-textarea v-model="form.description" placeholder="Description" class="px-2 py-1 border-2 border-gray-200 rounded-md focus:outline-none" />
     </at-field>
-    <at-field-check label="Notify subscribers" v-model="form.notify" />
+    <at-field-check label="Notify subscribers" class="w-44" v-model="form.notify" />
     <div class="flex justify-between">
         <at-field label="Affected sites" class="w-full">
             <div v-for="site in form.sites" :key="site.title" class="flex items-center justify-between w-full">
@@ -50,6 +50,7 @@
 <script setup>
 import { reactive, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+import { NSelect } from "naive-ui";
 import { AtField, AtInput, AtTextarea, AtButton, AtSwitch, AtFieldCheck } from "atmosphere-ui";
 import { usePageApi, useForm } from "../../utils";
 import Avatar from "../Avatar.vue";
@@ -69,6 +70,10 @@ const props = defineProps({
 const emit = defineEmits(['submit']);
 const state = reactive({
     siteStatus: ["OPERATIONAL", "DEGRADED", "PARTIAL", "MAJOR", "MAINTENANCE"],
+    incidentStatus: ["investigating", "update", 'resolved'].map(status => ({
+        value: status,
+        label: status,
+    })),
 });
 
 const form = useForm({

@@ -56,6 +56,7 @@ const addIncident = (incident) => {
       push('/dashboard');
     });
   }).catch((error) => {
+    console.log(error);
     message.error(error.description || error.message);
   });
 }

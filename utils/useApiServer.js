@@ -33,6 +33,7 @@ function siteToObject(site) {
         lastResponse: site.last_response,
         responses: site.responses || [],
         listeners: site.listeners || [],
+        user_uid: site.user_uid
     };
 }
 
