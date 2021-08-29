@@ -5,9 +5,7 @@
 [template.environment]
   VITE_SUPABASE_URL = ""
   VITE_SUPABASE_ANON_KEY = ""
-  SUPABASE_SECRET = ""
-  SUPABASE_ANON_KEY = ""
-  SUPABASE_SERVICE_KEY = ""
+  SUPABASE_SERVICE_ROLE = ""
   MAIL_HOST = ""
   MAIL_PORT= ""
   MAIL_USER = ""

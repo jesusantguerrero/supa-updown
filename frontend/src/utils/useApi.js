@@ -28,8 +28,8 @@ export function useSiteApi() {
         const { data, error } = await supabase
         .from('sites')
         .insert([{
-            user_uid: supabaseState.user.id, 
             ...parseSite(site),
+            user_uid: supabaseState.user.id, 
             }
         ])
 
@@ -102,7 +102,8 @@ export function usePageApi() {
                     title,
                     url,
                     protocol,
-                    status
+                    status,
+                    user_uid
                 )
             )
         `)
@@ -195,7 +196,8 @@ export function useIncidentApi() {
             for (const site of incident.sites) {
                 await updateRow('sites', {
                     id: site.id,
-                    status:site.status
+                    status: site.status,
+                    user_uid: site.user_uid,
                 });
             }
         }
@@ -203,7 +205,8 @@ export function useIncidentApi() {
         if (incident.incident_id) {
             updateRow('incidents', {
                 id: incident.incident_id,
-                status: incident.status
+                status: incident.status,
+                user_uid: incident.user_uid,
             });
         }
   
@@ -260,6 +263,8 @@ function parseSite(site) {
         last_response: site.lastResponse,
         responses: site.responses || [],
         listeners: site.listeners || [],
+        user_uid: site.user_uid,
+        status: site.status,
     };
 }
 
@@ -276,5 +281,7 @@ function siteToObject(site) {
         lastResponse: site.last_response,
         responses: site.responses || [],
         listeners: site.listeners || [],
+        user_uid: site.user_uid,
+        status: site.status
     };
 }

@@ -37,7 +37,8 @@ const updateCall = async (site) => {
             handlers: site.listeners,
             subject: `SUPA UP: ${site.protocol}${site.url} is down!`,
             message: `The site ${siteURL} is down. It took ${timeDiff} seconds to respond.`,
-            channel: 'email'
+            channel: 'email',
+            user_uid: site.user_uid
         })
         responseToSave = {
             date: format(startTime, 'yyyy-MM-dd'),
