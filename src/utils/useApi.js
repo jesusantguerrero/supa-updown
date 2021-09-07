@@ -1,36 +1,38 @@
-import { AuthState } from "./lumiere";
-const supabase = AuthState.provider;
+import { AuthState } from "@lumiere"
 
 export async function addRows(tableName, rows) {
+    const supabase = AuthState.provider.supabase
     const { data, error } = await supabase
     .from(tableName)
     .insert(rows.map(row => ({
         ...row,
-        user_uid: supabaseState.user.id, 
-
+        user_uid: AuthState.user.id, 
+        
     })));
-
+    
     if (error) throw error;
     return data;
 }
 
 export async function updateRow(tableName, row) {
+    const supabase = AuthState.provider.supabase
     const { data, error } = await supabase
     .from(tableName)
     .update(row, { returning: "representation" })
     .eq("id", row.id)
-
+    
     if (error) throw error;
     return data;
 } 
 
 export function useSiteApi() {    
+    const supabase = AuthState.provider.supabase
     const add = async (site) => {
         const { data, error } = await supabase
         .from('sites')
         .insert([{
             ...parseSite(site),
-            user_uid: supabaseState.user.id, 
+            user_uid: AuthState.user.id, 
             }
         ])
 
@@ -40,7 +42,7 @@ export function useSiteApi() {
 
     const get = async (siteId) => {
         const { data, error } = await supabase.from('sites').select('*')
-        .eq('user_uid', supabaseState.user.id)
+        .eq('user_uid', AuthState.user.id)
         .eq('id', siteId);
         if (error) throw error;
         return data;
@@ -55,7 +57,7 @@ export function useSiteApi() {
     const getAll = async () => {
         const { data, error } = await supabase.from('sites')
         .select('*')
-        .eq('user_uid', supabaseState.user.id);
+        .eq('user_uid', AuthState.user.id);
         if (error) throw error;
         return data?.map(siteToObject);
     }
@@ -79,6 +81,7 @@ export function useSiteApi() {
 }
 
 export function usePageApi() {
+    const supabase = AuthState.provider.supabase
     const get = async (pageId) => {
         const { data, error } = await supabase.from('pages')
         .select(`*,
@@ -108,7 +111,7 @@ export function usePageApi() {
                 )
             )
         `)
-        .eq('user_uid', supabaseState.user.id)
+        .eq('user_uid', AuthState.user.id)
         if (error) throw error;
         return data;
     }
@@ -180,6 +183,7 @@ export function usePageApi() {
 }
 
 export function useIncidentApi() {
+    const supabase = AuthState.provider.supabase
     const add = async (incident) => {
         const savedIncident = await addRows('incidents', [{
             incident_id: incident.incident_id,
@@ -190,7 +194,7 @@ export function useIncidentApi() {
             sites: incident.sites.map(site => site.id),
             notify_listeners: incident.notify_listeners,
             log: incident.sites,
-            user_uid: supabaseState.user.id,
+            user_uid: AuthState.user.id,
         }])
 
         if (incident.sites.length > 0) {
@@ -236,7 +240,7 @@ export function useIncidentApi() {
     const getAll = async (status) => {
         const { data, error } = await supabase.from('incidents')
         .select(`*`)
-        .eq('user_uid', supabaseState.user.id)
+        .eq('user_uid', AuthState.user.id)
         .is('incident_id', null)
         .neq('status', 'resolved');
 

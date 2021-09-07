@@ -1,4 +1,5 @@
 <template>
+<LayoutDefault>
   <div class="py-2 mt-10 mb-20 px-52">
     <page-form
       v-if="sites.length"
@@ -6,6 +7,7 @@
       @submit="addPage"
     />
   </div>
+</LayoutDefault>
 </template>
 
 <script setup>
@@ -13,6 +15,7 @@ import { reactive, nextTick } from 'vue';
 import { useMessage } from 'naive-ui';
 import { useRouter } from 'vue-router';
 import PageForm from '../components/page/PageForm.vue';
+import LayoutDefault from "../layouts/default.vue";
 import { useSiteApi, usePageApi } from '../utils/useApi';
 
 const  { getAll } = useSiteApi();

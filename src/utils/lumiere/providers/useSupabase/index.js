@@ -1,7 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
 export function useSupabase(AuthState, config) {
-  console.log(config)
   const supabase = createClient(config.supabaseURL, config.supabaseAnonKey);
 
   const logout = async (callback) => {

@@ -1,7 +1,7 @@
 <template>
   <header>
-    <div class="flex justify-between px-10 py-3 border-b shadow-md">
-      <router-link to="/dashboard" class="flex items-center">
+    <div class="flex items-center justify-between px-10 py-3 border-b shadow-md">
+      <router-link to="/dashboard" class="flex items-center h-14">
         <slot>
           <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd">
@@ -24,6 +24,7 @@
       </router-link>
       
       <div class="flex">
+        <slot name="action"></slot>
         <AtFeedbackButton @submit="onFeedback" />
         <AppNotification :notifications="unReadNotifications" />
         <AppUserButton :notifications="unReadNotifications" @logout="$emit('logout')" />

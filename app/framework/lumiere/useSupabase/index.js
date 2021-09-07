@@ -9,5 +9,7 @@ exports.useSupabase = (defaultConfig) => {
 
     return {
         notifications: notifications(supabase),
+        db: supabase.from,
+        storage: supabase.storage
     }
 }

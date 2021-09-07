@@ -1,13 +1,16 @@
 <template>
-  <lumiere-provider :provider="provider">
-    <router-view />
-  </lumiere-provider>
+  <n-message-provider>
+    <lumiere-provider :provider="provider">
+      <router-view />
+    </lumiere-provider>
+  </n-message-provider>
 </template>
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { avoidLoginRoutes } from  './router';
 import { useSupabase, AuthState, useAuth } from "@utils/lumiere";
+import { NMessageProvider } from "naive-ui"
 import config from "./config";
 import { nextTick, watch } from "@vue/runtime-core";
 import LumiereProvider from "./components/core/LumiereProvider.vue";

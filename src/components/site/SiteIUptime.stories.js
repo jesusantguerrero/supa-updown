@@ -1,3 +1,5 @@
+import { sub, subDays, format } from "date-fns";
+import getDates from "../../utils/getDates";
 import SiteUptime from "./SiteUptime.vue";
 
 export default {
@@ -16,9 +18,14 @@ const Template = (args) => ({
     // And then the `args` are bound to your component with `v-bind="args"`
     template: '<SiteUptime v-bind="args" />',
 });
+const date = new Date();
+const dates = getDates(subDays(date, 90) , date )
 
 export const Default = Template.bind({});
 Default.args = {
   max: 24,
-  value: 23,
+  responses: dates.map((date) => ({
+    date: format(date, 'yyyy-MM-dd'),
+    status: 200,
+  })),
 };

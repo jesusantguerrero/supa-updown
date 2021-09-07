@@ -37,6 +37,7 @@
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.18.0",
     "postcss": "^8.3.6",
+    "sass": "^1.39.0",
     "storybook-builder-vite": "0.0.12",
     "tailwindcss": "^2.2.8",
     "vite": "^2.5.1",

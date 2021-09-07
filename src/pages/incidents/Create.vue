@@ -1,12 +1,12 @@
 <template>
-  <div class="py-2 mt-10 mb-20 px-52">
-    <incidents-form
-      v-if="state.pages.length"
-      :pages="state.pages"
-      :incidents="state.incidents"
-      @submit="addIncident"
-    />
-  </div>
+  <LayoutDefault>
+      <incidents-form
+        v-if="state.pages.length"
+        :pages="state.pages"
+        :incidents="state.incidents"
+        @submit="addIncident"
+      />
+  </LayoutDefault>
 </template>
 
 <script setup>
@@ -15,6 +15,7 @@ import { useMessage } from 'naive-ui';
 import { useRouter } from 'vue-router';
 import IncidentsForm from '../../components/incidents/Form.vue';
 import { useIncidentApi, usePageApi } from '../../utils/useApi';
+import LayoutDefault from "@/layouts/default.vue"
 
 const  { getAll: getPages } = usePageApi();
 const  { add, update, getAll: getIncidents } = useIncidentApi();

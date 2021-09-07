@@ -1,6 +1,6 @@
 <template>
-  <div class="grid w-full mt-2 bg-gray-50 h-9 md:grid-cols-16 lg:grid-cols-60 place-items-end">
-    <div v-for="response in responses" :key="response" class="w-full h-full cursor-pointer active">
+  <div class="flex justify-end w-full mt-2 space-x-1 bg-gray-50 h-9">
+    <div v-for="response in responses" :key="response" class="w-2 h-full cursor-pointer active">
         <n-popover placement="bottom" trigger="hover">
             <template #trigger>
                 <div  :class="progressClass(response)" class="w-full h-full bg-green-500 bg-opacity-75 rounded-md cursor-pointer hover:bg-gray-500 bg-op" />
@@ -15,7 +15,7 @@
 <script setup>
     import format from "date-fns/format";
     import { NPopover } from "naive-ui"
-    import { reactive, toRefs } from "vue-demi";
+    import { reactive, toRefs } from "vue";
     
     const props = defineProps({
         max: {
@@ -29,7 +29,6 @@
             }
         }
     })
-
  
     const progressClass = (response) => {
         return response.status >= 400 ? 'bg-red-500' : 'bg-green-400';

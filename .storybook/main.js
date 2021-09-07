@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   "stories": [
     "../src/**/*.stories.mdx",
@@ -31,4 +32,16 @@ module.exports = {
 
     return config;
   },
+  async viteFinal(config, { configType }) {
+    // customize the Vite config here
+    config.resolve.alias['@/'] = path.resolve(__dirname, './src'),
+    config.resolve.alias['@components'] = path.resolve(__dirname, '../src/components'),
+    config.resolve.alias['@core'] = path.resolve(__dirname, '../src/components/core'),
+    config.resolve.alias['@utils'] = path.resolve(__dirname, '../src/utils'),
+    config.resolve.alias['@lumiere'] = path.resolve(__dirname, '../src/utils/lumiere')
+
+    // return the customized config
+    return config;
+},
+
 }

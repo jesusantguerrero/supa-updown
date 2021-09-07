@@ -9,7 +9,7 @@
         >
           <template #brand>
             <router-link :to="{name: 'landing'}" class="w-full font-light font-brand">
-                Lumiere UI
+                Supa Up
             </router-link>
           </template>
         </AtAuthForm>

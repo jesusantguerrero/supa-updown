@@ -21,7 +21,7 @@ module.exports = {
         90: 'repeat(90, minmax(0, 1fr))',
       },
       fontFamily: {
-        brand: ['Pacifico', 'cursive'],
+        brand: ['Poppins', 'system-ui' , 'sans-serif'],
       },
       colors: {
         primary: {
