@@ -1,11 +1,9 @@
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     './index.html', 
     './src/**/*.{vue,js,ts,jsx,tsx}',
     './node_modules/atmosphere-ui/**/*.{vue,js}'
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       display: ['Poppins', 'system-ui', 'sans-serif'],
